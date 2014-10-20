@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceScheduler", "IceScheduler\IceScheduler.csproj", "{515D598D-D75C-43C8-A4F0-E909A7F70F1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulerTest", "SchedulerTest\SchedulerTest.csproj", "{E6050906-4626-462C-9796-5EF1773437B1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{515D598D-D75C-43C8-A4F0-E909A7F70F1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{515D598D-D75C-43C8-A4F0-E909A7F70F1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{515D598D-D75C-43C8-A4F0-E909A7F70F1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{515D598D-D75C-43C8-A4F0-E909A7F70F1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6050906-4626-462C-9796-5EF1773437B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6050906-4626-462C-9796-5EF1773437B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6050906-4626-462C-9796-5EF1773437B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6050906-4626-462C-9796-5EF1773437B1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
