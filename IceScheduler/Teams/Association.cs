@@ -19,6 +19,6 @@ namespace IceScheduler.Teams
         SurreyFemale,
         TriCitiesFemale,
         VancouverGirls,
-        WesternWashingtonWild,
+        WesternWashingtonFemale,
     }
 }

@@ -54,6 +54,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Parsers\DateTimeParser.cs" />
+    <Compile Include="Parsers\PcahaTeamParser.cs" />
+    <Compile Include="Parsers\PcahaGameParser.cs" />
+    <Compile Include="Parsers\PcahaScheduleParser.cs" />
     <Compile Include="ScheduleMetrics.cs" />
     <Compile Include="ScheduleValidator.cs" />
     <Compile Include="Slots\IceSlot.cs" />

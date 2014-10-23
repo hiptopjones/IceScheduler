@@ -6,20 +6,60 @@ using System.Threading.Tasks;
 
 namespace IceScheduler.Slots
 {
-    public class Rink
+    public enum Rink
     {
-        public string BuildingName { get; private set; }
-        public string RinkName { get; private set; }
-
-        public Rink(string buildingName, string rinkName)
-        {
-            BuildingName = buildingName;
-            RinkName = rinkName;
-        }
-
-        public override string ToString()
-        {
-            return string.Format("{0} - {1}", BuildingName, RinkName);
-        }
+        Unknown,  // Useful for conflict games
+        Igloo,
+        Garage,
+        Pond,
+        Coliseum,
+        Forum,
+        Gardens,
+        Silver,
+        Stadium,
+        OvalNorth,
+        OvalSouth,
+        BuckNEar,
+        AbbotsfordCentreIceBlue,
+        BellinghamSportsplex,
+        BurnabyLake,
+        ChilliwackTwin2,
+        Cloverdale,
+        CoquitlamMain,
+        CoquitlamRec,
+        GeorgePreston,
+        HarryJerome,
+        Hillcrest,
+        IceSportsNorthShoreRed,
+        IceSportsNorthShoreBlue,
+        IceSportsNorthShoreGreen,
+        Kensington,
+        Killarney,
+        LangleySportsplex1,
+        LangleySportsplex2,
+        LangleyTwin1,
+        AbbotsfordMSA,
+        AbbotsfordMRC,
+        Newton,
+        NorthShoreWinterClub,
+        NorthSurrey2,
+        Agrodome,
+        PittMeadowsBlue,
+        PlanetIceCoquitlam1,
+        PlanetIceCoquitlam2,
+        PlanetIceCoquitlam3,
+        PlanetIceCoquitlam4,
+        PlanetIceDeltaCanadian,
+        PlanetIceMapleRidge1,
+        PlanetIceMapleRidge2,
+        PocoBlue,
+        PocoGreen,
+        PortMoody2,
+        Sunset,
+        SurreyLeisure1,
+        SurreyLeisure2,
+        SurreyLeisure3,
+        Tilbury,
+        WestVan
     }
 }

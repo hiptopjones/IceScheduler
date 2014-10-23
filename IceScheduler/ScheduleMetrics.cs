@@ -10,5 +10,7 @@ namespace IceScheduler
     {
         // Calculate how much ice a team has
         // Calculate how much ice goes unused
+        // Compare ice invoice to reality
+        // Count conflict games
     }
 }
