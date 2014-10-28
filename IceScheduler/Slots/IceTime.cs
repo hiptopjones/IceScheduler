@@ -19,6 +19,17 @@ namespace IceScheduler.Slots
             End = end;
         }
 
+        public IceTime(Rink rink, DayOfWeek dayOfWeek, TimeSpan startTime, TimeSpan endTime)
+        {
+            Rink = rink;
+
+            // This date is a Sunday well in the past, which enables easier math and detection of relative schedules
+            DateTime rootDayOfWeek = DateTime.Parse("April 1, 1900");
+            rootDayOfWeek.AddDays((int)dayOfWeek);
+            Start = rootDayOfWeek + startTime;
+            End = rootDayOfWeek + endTime;
+        }
+
         public IceTime(Rink rink, DateTime start, TimeSpan duration)
         {
             Rink = rink;
