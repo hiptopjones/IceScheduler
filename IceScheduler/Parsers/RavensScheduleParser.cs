@@ -12,7 +12,7 @@ namespace IceScheduler.Parsers
     public class RavensScheduleParser
     {
         // Parses the input schedule in a CSV format
-        public List<IceSlot> Parse(GameType gameType, string path)
+        public List<IceSlot> Parse(string path)
         {
             List<IceSlot> schedule = new List<IceSlot>();
             bool isInSchedule = false;
@@ -82,9 +82,9 @@ namespace IceScheduler.Parsers
 
                         Rink rink = ParseRink(dayOfWeekEntries[j + 1]);
 
-                        // Need to do j + 1 because these schedules are indexed Monday to Sunday, but the DayOfWeek is indexed Sunday to Saturday
-                        DayOfWeek dayOfWeek = (DayOfWeek)((j + 1) % 7);
-                        IceTime iceTime = new IceTime(rink, (DayOfWeek)j, startTime, endTime);
+                        // Need to do +1 because these schedules are indexed Monday to Sunday, but the DayOfWeek is indexed Sunday to Saturday
+                        DayOfWeek dayOfWeek = (DayOfWeek)((i + 1) % 7);
+                        IceTime iceTime = new IceTime(rink, dayOfWeek, startTime, endTime);
 
                         IceSlot slot = new AvailableSlot(iceTime);
                         if (slot != null)

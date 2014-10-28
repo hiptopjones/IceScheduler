@@ -16,7 +16,7 @@ namespace IceScheduler.Slots
 
         public override string ToString()
         {
-            return string.Format("Available - {1}", base.ToString());
+            return string.Format("Available - {0}", base.ToString());
         }
     }
 }

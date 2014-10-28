@@ -25,7 +25,8 @@ namespace IceScheduler.Slots
 
             // This date is a Sunday well in the past, which enables easier math and detection of relative schedules
             DateTime rootDayOfWeek = DateTime.Parse("April 1, 1900");
-            rootDayOfWeek.AddDays((int)dayOfWeek);
+            rootDayOfWeek = rootDayOfWeek.AddDays((int)dayOfWeek);
+
             Start = rootDayOfWeek + startTime;
             End = rootDayOfWeek + endTime;
         }
@@ -39,7 +40,7 @@ namespace IceScheduler.Slots
 
         public override string ToString()
         {
-            return string.Format("{0} {1} {2}-{3} @{4}", Start.DayOfWeek, Start.ToString("M"), Start.ToString("t"), End.ToString("t"), Rink);
+            return string.Format("{0} {1} to {2} {3}", Start.DayOfWeek, Start.ToString("t"), End.ToString("t"), Rink);
         }
     }
 }
