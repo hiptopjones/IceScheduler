@@ -60,6 +60,7 @@ namespace IceScheduler.Parsers
         {
             {"Abbotsford Female", Association.AbbotsfordFemale},
             {"Burnaby Female", Association.BurnabyFemale},
+            {"Chilliwack Female", Association.ChilliwackFemale},
             {"Langley Girls", Association.LangleyGirls},
             {"Meadow Ridge Female", Association.MeadowRidgeFemale},
             {"North Shore Female", Association.NorthShoreFemale},

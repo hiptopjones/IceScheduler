@@ -20,17 +20,45 @@ namespace ScheduleTool
                 return;
             }
 
-            List<IceSlot> slots = new List<IceSlot>();
+            List<IceSlot> slots = null;
+
             for (int i = 0; i < args.Length; i++)
             {
-                RavensScheduleParser parser = new RavensScheduleParser();
-                slots.AddRange(parser.Parse(args[i]));
+                if (args[i] == "-r")
+                {
+                    i++;
+
+                    RavensScheduleParser parser = new RavensScheduleParser();
+                    slots = parser.Parse(args[i]);
+                }
+                else if (args[i] == "-p")
+                {
+                    i++;
+
+                    PcahaScheduleParser parser = new PcahaScheduleParser();
+                    slots = parser.Parse(GameType.Tiering, args[i]);
+                }
+
+                if (args[i] == "-s")
+                {
+                    i++;
+                    
+                    switch (args[i])
+                    {
+                        case "Time":
+                            slots = slots.OrderBy(s => s.IceTime.Start).ToList();
+                            break;
+                    }
+                }
             }
+
+            Console.WriteLine("Number of slots: {0}", slots.Count);
 
             foreach (IceSlot slot in slots)
             {
                 Console.WriteLine(slot);
             }
+
 
             WaitForKey();
         }

@@ -12,7 +12,7 @@ namespace IceScheduler.Slots
 
         public IceSlot(IceTime iceTime)
         {
-            IceTime = iceTime;
+            IceTime = iceTime;  
         }
 
         public override string ToString()

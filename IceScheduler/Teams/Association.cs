@@ -10,6 +10,7 @@ namespace IceScheduler.Teams
     {
         AbbotsfordFemale,
         BurnabyFemale,
+        ChilliwackFemale,
         LangleyGirls,
         MeadowRidgeFemale,
         NorthShoreFemale,

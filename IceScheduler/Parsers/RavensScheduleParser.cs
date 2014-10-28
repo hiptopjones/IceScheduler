@@ -86,7 +86,7 @@ namespace IceScheduler.Parsers
                         DayOfWeek dayOfWeek = (DayOfWeek)((i + 1) % 7);
                         IceTime iceTime = new IceTime(rink, dayOfWeek, startTime, endTime);
 
-                        IceSlot slot = new AvailableSlot(iceTime);
+                        IceSlot slot = new IceSlot(iceTime);
                         if (slot != null)
                         {
                             schedule.Add(slot);
