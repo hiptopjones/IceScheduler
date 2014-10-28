@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -53,6 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Parsers\RavensScheduleParser.cs" />
     <Compile Include="Parsers\DateTimeParser.cs" />
     <Compile Include="Parsers\PcahaTeamParser.cs" />
     <Compile Include="Parsers\PcahaGameParser.cs" />
