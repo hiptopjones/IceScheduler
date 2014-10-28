@@ -21,9 +21,14 @@ namespace IceScheduler.Teams
             Flight = flight;
         }
 
+        public string ToStringNoAssociation()
+        {
+            return string.Format("{0} {1}{2}", Division, Level, Flight);
+        }
+
         public override string ToString()
         {
-            return string.Format("{0} {1} {2}{3}", Association, Division, Level, Flight);
+            return string.Format("{0} {1}", Association, ToStringNoAssociation());
         }
     }
 }

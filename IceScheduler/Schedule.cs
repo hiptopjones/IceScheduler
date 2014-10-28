@@ -21,7 +21,7 @@ namespace IceScheduler
         {
             get
             {
-                return Slots.OrderBy(s => s.IceTime.Start).First().IceTime.Start.Date;
+                return Slots.First().IceTime.Start.Date;
             }
         }
 
@@ -29,13 +29,14 @@ namespace IceScheduler
         {
             get
             {
-                return Slots.OrderBy(s => s.IceTime.Start).Last().IceTime.Start.Date;
+                return Slots.Last().IceTime.Start.Date;
             }
         }
 
-        public Schedule()
+        public Schedule(List<IceSlot> slots)
         {
-            Slots = new List<IceSlot>();
+            // TODO: Need to copy to a read-only collection, so that this cannot be modified after the fact.
+            Slots = slots.OrderBy(s => s.IceTime.Start).ToList();
         }
 
         public override string ToString()

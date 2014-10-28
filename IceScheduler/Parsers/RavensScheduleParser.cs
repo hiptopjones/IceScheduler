@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace IceScheduler.Parsers
 {
+    // TODO: This is super-rough code, need to refactor and UT
     public class RavensScheduleParser
     {
         // Parses the input schedule in a CSV format
@@ -86,7 +87,7 @@ namespace IceScheduler.Parsers
                         DayOfWeek dayOfWeek = (DayOfWeek)((i + 1) % 7);
                         IceTime iceTime = new IceTime(rink, dayOfWeek, startTime, endTime);
 
-                        IceSlot slot = new IceSlot(iceTime);
+                        IceSlot slot = new AvailableSlot(iceTime);
                         if (slot != null)
                         {
                             schedule.Add(slot);

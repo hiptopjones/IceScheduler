@@ -42,7 +42,7 @@ namespace IceScheduler.Slots
 
         public override string ToString()
         {
-            // Only include date if it is valid
+            // Only include the month and day if it is valid (non-root)
             if (Start - RootSunday < TimeSpan.FromDays(7))
             {
                 return string.Format("{0} {1} to {2} {3}", Start.DayOfWeek, Start.ToString("t"), End.ToString("t"), Rink);

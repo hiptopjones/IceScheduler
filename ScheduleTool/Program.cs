@@ -1,4 +1,6 @@
-﻿using IceScheduler.Parsers;
+﻿using IceScheduler;
+using IceScheduler.Formatters;
+using IceScheduler.Parsers;
 using IceScheduler.Slots;
 using System;
 using System.Collections.Generic;
@@ -49,6 +51,14 @@ namespace ScheduleTool
                             slots = slots.OrderBy(s => s.IceTime.Start).ToList();
                             break;
                     }
+                }
+
+                if (args[i] == "-w")
+                {
+                    i++;
+
+                    RavensScheduleFormatter formatter = new RavensScheduleFormatter();
+                    formatter.WriteSchedule(slots, args[i]);
                 }
             }
 
