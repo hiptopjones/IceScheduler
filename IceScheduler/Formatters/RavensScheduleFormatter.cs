@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -91,11 +92,11 @@ namespace IceScheduler.Formatters
             builder.AppendLine("<body>");
             builder.AppendLine("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=743 style='border-collapse: collapse;table-layout:fixed'>");
 
-            builder.Append("<tr>");
-            builder.Append(GetTableCell("DayOfWeek", string.Empty));
-            foreach (var value in Enum.GetNames(typeof(DayOfWeek)))
+            builder.AppendLine("<tr>");
+            builder.AppendLine(GetTableCell("DayOfWeek", string.Empty));
+            foreach (DayOfWeek dayOfWeek in GetDaysOfWeek())
             {
-                builder.Append(GetTableCell("DayOfWeek", value));
+                builder.AppendLine(GetTableCell("DayOfWeek", dayOfWeek.ToString()));
             }
             builder.AppendLine("</tr>");
 
@@ -103,30 +104,30 @@ namespace IceScheduler.Formatters
             TimeSpan current = startOfDay;
             for (int i = 0; i < numRows; i++)
             {
-                builder.Append("<tr>");
+                builder.AppendLine("<tr>");
                 if ((i % 4) == 0)
                 {
-                    builder.Append(GetTableCell("TimeScale", current.ToString(@"hh\:mm")));
+                    builder.AppendLine(GetTableCell("TimeScale RightEdge", current.ToString(@"hh\:mm")));
                 }
                 else
                 {
-                    builder.Append(GetTableCell(string.Empty));
+                    builder.AppendLine(GetTableCell("RightEdge", string.Empty));
                 }
 
-                for (int j = 0; j < dayOfWeekLists.Length; j++)
+                foreach (DayOfWeek dayOfWeek in GetDaysOfWeek())
                 {
-                    builder.Append(dayOfWeekLists[j][i] ?? GetTableCell(string.Empty));
+                    builder.AppendLine(dayOfWeekLists[(int)dayOfWeek][i] ?? GetTableCell(string.Empty));
                 }
                 builder.AppendLine("</tr>");
 
                 current += interval;
             }
 
-            builder.Append("<tr>");
-            builder.Append(GetTableCell("DayOfWeek", string.Empty));
-            foreach (var value in Enum.GetNames(typeof(DayOfWeek)))
+            builder.AppendLine("<tr>");
+            builder.AppendLine(GetTableCell("DayOfWeek", string.Empty));
+            foreach (DayOfWeek dayOfWeek in GetDaysOfWeek())
             {
-                builder.Append(GetTableCell("DayOfWeek", value));
+                builder.AppendLine(GetTableCell("DayOfWeek", dayOfWeek.ToString()));
             }
             builder.AppendLine("</tr>");
 
@@ -134,6 +135,7 @@ namespace IceScheduler.Formatters
             builder.AppendLine("</body>");
             builder.AppendLine("</html>");
 
+            // Dump the HTML out to the specified file
             File.WriteAllText(path, builder.ToString());
         }
 
@@ -188,7 +190,7 @@ namespace IceScheduler.Formatters
             }
             else if (slot is GameSlot)
             {
-                return GetTableCell("GameTime", GetTimeRange(slot.IceTime));
+                return GetTableCell("NormalTime", GetTimeRange(slot.IceTime));
             }
             else
             {
@@ -216,7 +218,7 @@ namespace IceScheduler.Formatters
             }
             else if (slot is GameSlot)
             {
-                return GetTableCell("GameRink", GetRinkName(slot.IceTime.Rink));
+                return GetTableCell("NormalRink", GetRinkName(slot.IceTime.Rink));
             }
             else
             {
@@ -355,6 +357,20 @@ namespace IceScheduler.Formatters
                     return "Unknown";
             }
         }
+        
+        private List<DayOfWeek> GetDaysOfWeek()
+        {
+            return new List<DayOfWeek>
+            {
+                DayOfWeek.Monday,
+                DayOfWeek.Tuesday,
+                DayOfWeek.Wednesday,
+                DayOfWeek.Thursday,
+                DayOfWeek.Friday,
+                DayOfWeek.Saturday,
+                DayOfWeek.Sunday
+            };
+        }
 
         private int GetRowIndex(TimeSpan startTime, TimeSpan actualTime)
         {
@@ -393,24 +409,20 @@ namespace IceScheduler.Formatters
             StringBuilder builder = new StringBuilder();
             builder.AppendLine("<style TYPE=\"text/css\">");
             builder.AppendLine("<!--");
-            builder.Append("td" +
-    "{padding-top:1px;" +
-    "padding-right:1px;" +
-    "padding-left:1px;" +
-    "color:black;" +
-    "font-size:11.0pt;" +
-    "font-weight:400;" +
-    "font-style:normal;" +
-    "text-decoration:none;" +
-    "font-family:Calibri, sans-serif;" +
-    "text-align:general;" +
-    "vertical-align:bottom;" +
-    "border:none;" +
-    "white-space:nowrap;}");
+            builder.AppendLine(GetStyleSheetEmbeddedResource());
             builder.AppendLine("-->");
             builder.AppendLine("</style");
 
             return builder.ToString();
+        }
+
+        private string GetStyleSheetEmbeddedResource()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            using (StreamReader reader = new StreamReader(assembly.GetManifestResourceStream("IceScheduler.Formatters.RavensStyleSheet.css")))
+            {
+                return reader.ReadToEnd();
+            }
         }
     }
 }

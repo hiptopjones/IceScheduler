@@ -1,0 +1,94 @@
+﻿td {
+    padding-top:1px; 
+    padding-right:1px; 
+    padding-left:1px; 
+    color:black; 
+    font-size:10.0pt; 
+    font-weight:400; 
+    font-style:normal; 
+    text-decoration:none; 
+    font-family:Calibri, sans-serif; 
+    text-align:center; 
+    vertical-align:bottom; 
+    border:none; 
+    white-space:nowrap;
+} 
+.NormalTime {
+    border-right:1.0pt solid black;
+    border-left:1.0pt solid black;
+}
+.NormalRink {
+    border-right:1.0pt solid black;
+    border-left:1.0pt solid black;
+}
+.NormalFooter {
+    border-right:1.0pt solid black;
+    border-left:1.0pt solid black;
+    border-bottom:1.0pt solid black; 
+}
+.PracticeHeader {
+    font-weight:700; 
+    border-top:1.0pt solid black; 
+    border-right:1.0pt solid black;
+    border-left:1.0pt solid black;
+}
+.AvailableHeader {
+    color:red; 
+    font-weight:700; 
+    border-top:1.0pt solid black; 
+    border-right:1.0pt solid black;
+    border-left:1.0pt solid black;
+}
+.GameHeader {
+    background:#99CCFF; 
+    font-weight:700; 
+    border-top:1.0pt solid black; 
+    border-right:1.0pt solid black;
+    border-left:1.0pt solid black;
+}
+.GameFooter {
+    color:red;
+    font-style:italic;
+    border-right:1.0pt solid black;
+    border-left:1.0pt solid black;
+    border-bottom:1.0pt solid black; 
+}
+.SkillsHeader {
+    background:yellow; 
+    font-weight:700; 
+    border-top:1.0pt solid black; 
+    border-right:1.0pt solid black;
+    border-left:1.0pt solid black;
+}
+.SkillsTime {
+    background:yellow; 
+    border-right:1.0pt solid black;
+    border-left:1.0pt solid black;
+}
+.SkillsRink {
+    background:yellow; 
+    border-right:1.0pt solid black;
+    border-left:1.0pt solid black;
+}
+.SkillsFooter {
+    background:yellow; 
+    font-weight:700; 
+    border-right:1.0pt solid black;
+    border-left:1.0pt solid black;
+    border-bottom:1.0pt solid black; 
+}
+.DayOfWeek {
+    font-weight:900; 
+    border-Top:2.0pt solid black;
+    border-bottom:2.0pt solid black; 
+}
+.TimeScale {
+    font-weight:900; 
+    border-top:1.0pt solid black;
+}
+.LeftEdge {
+    border-left:2.0pt solid black;
+}
+.RightEdge {
+    border-right:2.0pt solid black;
+}
