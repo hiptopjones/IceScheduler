@@ -67,7 +67,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formatters\FlatListFormatter.cs" />
     <Compile Include="Formatters\RavensScheduleFormatter.cs" />
+    <Compile Include="Parsers\FlatListParser.cs" />
     <Compile Include="Parsers\RavensScheduleParser.cs" />
     <Compile Include="Parsers\DateTimeParser.cs" />
     <Compile Include="Parsers\PcahaTeamParser.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="Slots\TeamSkillDevelopmentSlot.cs" />
     <Compile Include="Slots\OtherSkillDevelopmentSlot.cs" />
     <Compile Include="Schedule.cs" />
+    <Compile Include="Formatters\FormattingUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Teams\Association.cs" />

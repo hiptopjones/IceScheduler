@@ -148,7 +148,7 @@ namespace IceScheduler.Formatters
             else if (slot is PracticeSlot)
             {
                 PracticeSlot practiceSlot = slot as PracticeSlot;
-                return GetTableCell("PracticeHeader", GetCompositeTeamName(practiceSlot.Teams));
+                return GetTableCell("PracticeHeader", FormattingUtilities.GetCompositeTeamName(practiceSlot.Teams));
             }
             else if (slot is TeamSkillDevelopmentSlot)
             {
@@ -172,25 +172,27 @@ namespace IceScheduler.Formatters
 
         private string GetTime(IceSlot slot)
         {
+            string timeRange = FormattingUtilities.GetTimeRange(slot.IceTime);
+
             if (slot is AvailableSlot)
             {
-                return GetTableCell("NormalTime", GetTimeRange(slot.IceTime));
+                return GetTableCell("NormalTime", timeRange);
             }
             else if (slot is PracticeSlot)
             {
-                return GetTableCell("NormalTime", GetTimeRange(slot.IceTime));
+                return GetTableCell("NormalTime", timeRange);
             }
             else if (slot is TeamSkillDevelopmentSlot)
             {
-                return GetTableCell("SkillsTime", GetTimeRange(slot.IceTime));
+                return GetTableCell("SkillsTime", timeRange);
             }
             else if (slot is OtherSkillDevelopmentSlot)
             {
-                return GetTableCell("SkillsTime", GetTimeRange(slot.IceTime));
+                return GetTableCell("SkillsTime", timeRange);
             }
             else if (slot is GameSlot)
             {
-                return GetTableCell("NormalTime", GetTimeRange(slot.IceTime));
+                return GetTableCell("NormalTime", timeRange);
             }
             else
             {
@@ -240,7 +242,7 @@ namespace IceScheduler.Formatters
             else if (slot is TeamSkillDevelopmentSlot)
             {
                 TeamSkillDevelopmentSlot skillsSlot = slot as TeamSkillDevelopmentSlot;
-                return GetTableCell("SkillsFooter", GetCompositeTeamName(skillsSlot.Teams));
+                return GetTableCell("SkillsFooter", FormattingUtilities.GetCompositeTeamName(skillsSlot.Teams));
             }
             else if (slot is OtherSkillDevelopmentSlot)
             {
@@ -277,21 +279,6 @@ namespace IceScheduler.Formatters
             }
 
             return string.Format("<td class=\"{0}\">{1}</td>", className, text);
-        }
-
-        private string GetCompositeTeamName(List<Team> teams)
-        {
-            if (teams.Count > 1)
-            {
-                return string.Join("/", teams.Select(t => string.Format("{0}{1}{2}", t.Division.ToString().Substring(0, 1), t.Level, t.Flight)));
-            }
-
-            return teams.First().ToStringNoAssociation();
-        }
-
-        private string GetTimeRange(IceTime iceTime)
-        {
-            return string.Format("{0}-{1}", iceTime.Start.ToString("h:mm"), iceTime.End.ToString("h:mmtt").ToLower());
         }
 
         private string GetVersusName(Team team)
