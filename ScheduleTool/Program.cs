@@ -28,7 +28,8 @@ namespace ScheduleTool
             string inputPath = null;
             string outputType = null;
             string outputPath = null;
-            string sortType = null;
+            string processType = null;
+            string processArgs = null;
 
             for (int i = 0; i < args.Length; i++)
             {
@@ -48,9 +49,13 @@ namespace ScheduleTool
                 {
                     outputPath = args[++i];
                 }
-                else if (args[i] == "-s")
+                else if (args[i] == "-p")
                 {
-                    sortType = args[++i];
+                    processType = args[++i];
+                }
+                else if (args[i] == "-a")
+                {
+                    processArgs = args[++i];
                 }
                 else
                 {
@@ -95,15 +100,27 @@ namespace ScheduleTool
 
             Console.WriteLine("Processing {0} slots.", slots.Count);
 
-            if (!string.IsNullOrEmpty(sortType))
+            if (!string.IsNullOrEmpty(processType))
             {
-                if (sortType.ToLower() == "time")
+                if (processType.ToLower() == "sort")
                 {
                     slots = slots.OrderBy(s => s.IceTime.Start).ToList();
                 }
+                else if (processType.ToLower() == "rebase")
+                {
+                    DateTime oldStartDate = slots.First().IceTime.Start.Date;
+                    DateTime newStartDate = DateTime.Parse(processArgs);
+                    TimeSpan delta = newStartDate - oldStartDate;
+
+                    slots = slots.Select(s =>
+                    {
+                        s.IceTime.Adjust(delta);
+                        return s;
+                    }).ToList();
+                }
                 else
                 {
-                    Console.WriteLine("Unrecognized sort type: {0}", sortType);
+                    Console.WriteLine("Unrecognized sort type: {0}", processType);
                     PrintUsage();
                     return;
                 }

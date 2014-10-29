@@ -58,7 +58,7 @@ namespace IceScheduler.Formatters
 
                     GameSlot gameSlot = slot as GameSlot;
                     fields.Add(gameSlot.Type.ToString());
-                    fields.Add(gameSlot.HomeTeam.ToStringNoAssociation());
+                    fields.Add(gameSlot.HomeTeam.ToString());
                     fields.Add(gameSlot.AwayTeam.ToString());
                 }
                 else

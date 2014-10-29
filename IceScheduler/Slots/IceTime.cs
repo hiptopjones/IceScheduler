@@ -40,6 +40,12 @@ namespace IceScheduler.Slots
             End = start + duration;
         }
 
+        public void Adjust(TimeSpan delta)
+        {
+            Start += delta;
+            End += delta;
+        }
+
         public override string ToString()
         {
             // Only include the month and day if it is valid (non-root)
