@@ -92,11 +92,32 @@ namespace IceScheduler.Formatters
             builder.AppendLine("<body>");
             builder.AppendLine("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=743 style='border-collapse: collapse;table-layout:fixed'>");
 
+            // Title row
             builder.AppendLine("<tr>");
-            builder.AppendLine(GetTableCell("DayOfWeek", string.Empty));
+            builder.AppendLine(GetTableCell("Title", string.Format("Ravens Weekly Schedule - {0}", slots.First().IceTime.Start.Date.ToString("MMMM d, yyyy")), "colspan=\"8\""));
+            builder.AppendLine("</tr>");
+
+            // Blank row
+            builder.AppendLine("<tr>");
+            builder.AppendLine(GetTableCell(string.Empty));
+            builder.AppendLine("</tr>");
+
+            // Day-of-week row
+            builder.AppendLine("<tr>");
+            builder.AppendLine(GetTableCell("DayOfWeekTop", string.Empty));
             foreach (DayOfWeek dayOfWeek in GetDaysOfWeek())
             {
-                builder.AppendLine(GetTableCell("DayOfWeek", dayOfWeek.ToString()));
+                builder.AppendLine(GetTableCell("DayOfWeekTop", dayOfWeek.ToString()));
+            }
+            builder.AppendLine("</tr>");
+
+            // Day-of-month row
+            builder.AppendLine("<tr>");
+            builder.AppendLine(GetTableCell("DayOfWeekBottom", string.Empty));
+            var days = slots.Select(s => s.IceTime.Start.Day).Distinct();
+            foreach (int day in days)
+            {
+                builder.AppendLine(GetTableCell("DayOfWeekBottom", day.ToString()));
             }
             builder.AppendLine("</tr>");
 
@@ -116,7 +137,7 @@ namespace IceScheduler.Formatters
 
                 foreach (DayOfWeek dayOfWeek in GetDaysOfWeek())
                 {
-                    builder.AppendLine(dayOfWeekLists[(int)dayOfWeek][i] ?? GetTableCell(string.Empty));
+                    builder.AppendLine(dayOfWeekLists[(int)dayOfWeek][i] ?? GetTableCell("EmptyCell", string.Empty));
                 }
                 builder.AppendLine("</tr>");
 
@@ -124,10 +145,10 @@ namespace IceScheduler.Formatters
             }
 
             builder.AppendLine("<tr>");
-            builder.AppendLine(GetTableCell("DayOfWeek", string.Empty));
+            builder.AppendLine(GetTableCell("DayOfWeekTop DayOfWeekBottom", string.Empty));
             foreach (DayOfWeek dayOfWeek in GetDaysOfWeek())
             {
-                builder.AppendLine(GetTableCell("DayOfWeek", dayOfWeek.ToString()));
+                builder.AppendLine(GetTableCell("DayOfWeekTop DayOfWeekBottom", dayOfWeek.ToString()));
             }
             builder.AppendLine("</tr>");
 
@@ -264,22 +285,22 @@ namespace IceScheduler.Formatters
 
         private string GetTableCell(string text)
         {
-            if (string.IsNullOrEmpty(text))
-            {
-                text = "&nbsp;";
-            }
-
-            return string.Format("<td class=\"EmptyCell\">{0}</td>", text);
+            return GetTableCell(string.Empty, text);
         }
 
         private string GetTableCell(string className, string text)
+        {
+            return GetTableCell(className, text, string.Empty);
+        }
+
+        private string GetTableCell(string className, string text, string attributes)
         {
             if (string.IsNullOrEmpty(text))
             {
                 text = "&nbsp;";
             }
 
-            return string.Format("<td class=\"{0}\">{1}</td>", className, text);
+            return string.Format("<td class=\"{0}\" {1}>{2}</td>", className, attributes, text);
         }
 
         private string GetVersusName(Team team)

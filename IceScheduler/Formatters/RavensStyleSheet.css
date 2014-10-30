@@ -12,7 +12,11 @@
     vertical-align:bottom; 
     border:none; 
     white-space:nowrap;
-} 
+}
+.Title{
+    font-size:12.0pt;
+    font-weight:900;
+}
 .NormalTime {
     border-right:1.0pt solid black;
     border-left:1.0pt solid black;
@@ -77,9 +81,12 @@
     border-left:1.0pt solid black;
     border-bottom:1.0pt solid black; 
 }
-.DayOfWeek {
+.DayOfWeekTop {
     font-weight:900; 
-    border-Top:2.0pt solid black;
+    border-top:2.0pt solid black;
+}
+.DayOfWeekBottom {
+    font-weight:900; 
     border-bottom:2.0pt solid black; 
 }
 .TimeScale {
