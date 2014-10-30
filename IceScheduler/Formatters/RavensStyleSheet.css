@@ -86,6 +86,10 @@
     font-weight:900; 
     border-top:1.0pt solid black;
 }
+.EmptyCell {
+    background:#e0e0e0;
+    border-right:1.0pt solid black;
+}
 .LeftEdge {
     border-left:2.0pt solid black;
 }

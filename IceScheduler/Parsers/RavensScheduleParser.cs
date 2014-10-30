@@ -1,4 +1,5 @@
 ﻿using IceScheduler.Slots;
+using IceScheduler.Teams;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -72,22 +73,48 @@ namespace IceScheduler.Parsers
                     Match match = timeRange.Match(dayOfWeekEntries[j]);
                     if (match.Success)
                     {
-                        TimeSpan startTime = TimeSpan.Parse(match.Groups[1].Value);
-                        TimeSpan endTime = DateTime.Parse(match.Groups[2].Value).TimeOfDay;
+                        TimeSpan[] times = ParsingUtilities.ParseTimeRange(dayOfWeekEntries[j]);
+                        TimeSpan startTime = times[0];
+                        TimeSpan endTime = times[1];
 
-                        // Adjust startTime to be PM if necessary
-                        if (endTime - startTime > TimeSpan.FromHours(12))
-                        {
-                            startTime += TimeSpan.FromHours(12);
-                        }
-
+                        string header = dayOfWeekEntries[j - 1];
                         Rink rink = ParseRink(dayOfWeekEntries[j + 1]);
+                        string footer = dayOfWeekEntries[j + 2];
 
                         // Need to do +1 because these schedules are indexed Monday to Sunday, but the DayOfWeek is indexed Sunday to Saturday
                         DayOfWeek dayOfWeek = (DayOfWeek)((i + 1) % 7);
                         IceTime iceTime = new IceTime(rink, dayOfWeek, startTime, endTime);
 
-                        IceSlot slot = new AvailableSlot(iceTime);
+                        IceSlot slot = null;
+
+                        if (header == "Development")
+                        {
+                            if (footer == "Goalies" || footer == "Various")
+                            {
+                                slot = new OtherSkillDevelopmentSlot(iceTime, footer);
+                            }
+                            else
+                            {
+                                List<Team> teams = ParsingUtilities.ParseRavensTeams(footer);
+                                slot = new TeamSkillDevelopmentSlot(iceTime, header, teams.ToArray());
+                            }
+                        }
+                        else if (header == "Available" || header == "Conflict Ice")
+                        {
+                            slot = new AvailableSlot(iceTime);
+                        }
+                        else if (header == "Skill Accelerator")
+                        {
+                            // TODO: Teams?
+                            slot = new OtherSkillDevelopmentSlot(iceTime, header);
+                        }
+                        else
+                        {
+                            // Try to parse the team name
+                            List<Team> teams = ParsingUtilities.ParseRavensTeams(header);
+                            slot = new PracticeSlot(iceTime, teams.ToArray());
+                        }
+
                         if (slot != null)
                         {
                             schedule.Add(slot);
