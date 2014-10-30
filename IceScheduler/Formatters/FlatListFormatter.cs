@@ -43,6 +43,7 @@ namespace IceScheduler.Formatters
                     fields.Add("TeamSkills");
                     
                     TeamSkillDevelopmentSlot skillsSlot = slot as TeamSkillDevelopmentSlot;
+                    fields.Add(skillsSlot.Name);
                     fields.Add(FormattingUtilities.GetCompositeTeamName(skillsSlot.Teams));
                 }
                 else if (slot is OtherSkillDevelopmentSlot)

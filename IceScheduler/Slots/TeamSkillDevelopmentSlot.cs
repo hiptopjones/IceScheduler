@@ -9,17 +9,19 @@ namespace IceScheduler.Slots
 {
     public class TeamSkillDevelopmentSlot : IceSlot
     {
+        public string Name { get; private set; }
         public List<Team> Teams { get; private set; }
 
-        public TeamSkillDevelopmentSlot(IceTime iceTime, params Team[] teams)
+        public TeamSkillDevelopmentSlot(IceTime iceTime, string name, params Team[] teams)
             : base(iceTime)
         {
+            Name = name;
             Teams = new List<Team>(teams);
         }
 
         public override string ToString()
         {
-            return string.Format("Skill Development - {0} - {1}", string.Join("/", Teams), base.ToString());
+            return string.Format("Skill Development - {0} - {1} - {2}", Name, string.Join("/", Teams), base.ToString());
         }
     }
 }

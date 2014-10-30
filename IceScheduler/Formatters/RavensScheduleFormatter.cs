@@ -152,7 +152,8 @@ namespace IceScheduler.Formatters
             }
             else if (slot is TeamSkillDevelopmentSlot)
             {
-                return GetTableCell("SkillsHeader", "Development");
+                TeamSkillDevelopmentSlot skillsSlot = slot as TeamSkillDevelopmentSlot;
+                return GetTableCell("SkillsHeader", skillsSlot.Name);
             }
             else if (slot is OtherSkillDevelopmentSlot)
             {
