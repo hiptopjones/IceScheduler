@@ -145,6 +145,11 @@ namespace ScheduleTool
                     RavensScheduleFormatter formatter = new RavensScheduleFormatter();
                     formatter.WriteSchedule(slots, outputPath);
                 }
+                else if (outputType.ToLower() == "import")
+                {
+                    TeamPagesFormatter formatter = new TeamPagesFormatter();
+                    formatter.WriteSchedule(slots, outputPath);
+                }
                 else
                 {
                     Console.WriteLine("Unrecognized output type: {0}", outputType);
@@ -152,12 +157,6 @@ namespace ScheduleTool
                     return;
                 }
             }
-
-            foreach (IceSlot slot in slots)
-            {
-                Console.WriteLine(slot);
-            }
-
 
             WaitForKey();
         }

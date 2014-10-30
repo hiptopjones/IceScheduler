@@ -86,7 +86,7 @@ namespace IceScheduler.Formatters
             StringBuilder builder = new StringBuilder();
             builder.AppendLine("<html>");
             builder.AppendLine("<head>");
-            builder.AppendLine("<title> Weekly Schedule </title>");
+            builder.AppendLine(string.Format("<title>Ravens Weekly Schedule - {0}</title>", slots.First().IceTime.Start.ToString("yyyyMMdd")));
             builder.AppendLine(GetStyleSheet());
             builder.AppendLine("</head>");
             builder.AppendLine("<body>");
@@ -94,7 +94,7 @@ namespace IceScheduler.Formatters
 
             // Title row
             builder.AppendLine("<tr>");
-            builder.AppendLine(GetTableCell("Title", string.Format("Ravens Weekly Schedule - {0}", slots.First().IceTime.Start.Date.ToString("MMMM d, yyyy")), "colspan=\"8\""));
+            builder.AppendLine(GetTableCell("Title", string.Format("Ravens Weekly Schedule - {0}", slots.First().IceTime.Start.ToString("MMMM d, yyyy")), "colspan=\"8\""));
             builder.AppendLine("</tr>");
 
             // Blank row
