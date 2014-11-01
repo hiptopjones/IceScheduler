@@ -21,11 +21,6 @@ namespace IceScheduler.Teams
             Flight = flight;
         }
 
-        public string ToStringNoAssociation()
-        {
-            return string.Format("{0} {1}{2}", Division, Level, Flight);
-        }
-
         public override bool Equals(object obj)
         {
             Team other = obj as Team;
@@ -55,6 +50,63 @@ namespace IceScheduler.Teams
         public override string ToString()
         {
             return string.Format("{0} {1}", Association, ToStringNoAssociation());
+        }
+
+        public string ToStringNoAssociation()
+        {
+            return string.Format("{0} {1}{2}", Division, Level, Flight);
+        }
+
+        public string ToStringVersus()
+        {
+            string shortName;
+
+            switch (Association)
+            {
+                case Association.AbbotsfordFemale:
+                    shortName = "Abbotsford";
+                    break;
+                case Association.BurnabyFemale:
+                    shortName = "Burnaby";
+                    break;
+                case Association.ChilliwackFemale:
+                    shortName = "Chilliwack";
+                    break;
+                case Association.LangleyGirls:
+                    shortName = "Langley";
+                    break;
+                case Association.MeadowRidgeFemale:
+                    shortName = "M Ridge";
+                    break;
+                case Association.NorthShoreFemale:
+                    shortName = "N Shore";
+                    break;
+                case Association.NorthShoreWinterClubFemale:
+                    shortName = "NSWC";
+                    break;
+                case Association.RichmondGirls:
+                    shortName = "Richmond";
+                    break;
+                case Association.SouthDeltaFemale:
+                    shortName = "S Delta";
+                    break;
+                case Association.SurreyFemale:
+                    shortName = "Surrey";
+                    break;
+                case Association.TriCitiesFemale:
+                    shortName = "Tri-Cities";
+                    break;
+                case Association.VancouverGirls:
+                    shortName = "Vancouver";
+                    break;
+                case Association.WesternWashingtonFemale:
+                    shortName = "W Washington";
+                    break;
+                default:
+                    throw new Exception(string.Format("Unrecognized association: {0}", Association));
+            }
+
+            return string.Format("{0} {1}{2}", shortName, Level, Flight);
         }
     }
 }

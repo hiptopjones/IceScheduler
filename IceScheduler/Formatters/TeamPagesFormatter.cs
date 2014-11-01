@@ -68,6 +68,21 @@ namespace IceScheduler.Formatters
                             type = "Skills Development";
                             opponent = "Skills Session";
                         }
+                        else if (slot is GameSlot)
+                        {
+                            GameSlot gameSlot = slot as GameSlot;
+
+                            type = "League Game";
+                            home = "@";
+                            opponent = gameSlot.HomeTeam.ToStringVersus();
+
+                            // TODO: Need to handle case where two Ravens teams play each other
+                            if (gameSlot.HomeTeam.Association == Association.RichmondGirls)
+                            {
+                                home = "vs.";
+                                opponent = gameSlot.AwayTeam.ToStringVersus();
+                            }
+                        }
 
                         date = slot.IceTime.Start.ToString("dd-MMM-yyyy");
                         start = slot.IceTime.Start.ToString("hh:mm tt");
@@ -136,6 +151,14 @@ namespace IceScheduler.Formatters
                     if (skillsSlot.Teams.Contains(team))
                     {
                         slotsForTeam.Add(skillsSlot);
+                    }
+                }
+                else if (slot is GameSlot)
+                {
+                    GameSlot gameSlot = slot as GameSlot;
+                    if (gameSlot.AwayTeam.Equals(team) || gameSlot.HomeTeam.Equals(team))
+                    {
+                        slotsForTeam.Add(gameSlot);
                     }
                 }
             }

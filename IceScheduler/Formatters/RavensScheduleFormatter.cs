@@ -61,6 +61,7 @@ namespace IceScheduler.Formatters
                 GameSlot gameSlot = slot as GameSlot;
                 if (gameSlot != null)
                 {
+                    // TODO: Need to handle case where two Ravens teams play each other
                     if (gameSlot.HomeTeam.Association != Association.RichmondGirls)
                     {
                         awayGameLists[dayOfWeekIndex].Add(GetAwayGameCell(gameSlot));
@@ -306,7 +307,7 @@ namespace IceScheduler.Formatters
             {
                 GameSlot gameSlot = slot as GameSlot;
                 Team awayTeam = gameSlot.AwayTeam;
-                return GetTableCell("GameFooter", string.Format("v. {0}", GetVersusName(awayTeam)));
+                return GetTableCell("GameFooter", string.Format("v. {0}", awayTeam.ToStringVersus()));
             }
             else
             {
@@ -338,41 +339,6 @@ namespace IceScheduler.Formatters
         {
             string awayGame = string.Format("{0} Away", gameSlot.AwayTeam.ToStringNoAssociation());
             return GetTableCell(awayGame);
-        }
-
-        private string GetVersusName(Team team)
-        {
-            switch (team.Association)
-            {
-                case Association.AbbotsfordFemale:
-                    return "Abbotsford";
-                case Association.BurnabyFemale:
-                    return "Burnaby";
-                case Association.ChilliwackFemale:
-                    return "Chilliwack";
-                case Association.LangleyGirls:
-                    return "Langley";
-                case Association.MeadowRidgeFemale:
-                    return "M Ridge";
-                case Association.NorthShoreFemale:
-                    return "N Shore";
-                case Association.NorthShoreWinterClubFemale:
-                    return "NSWC";
-                case Association.RichmondGirls:
-                    return team.ToStringNoAssociation();
-                case Association.SouthDeltaFemale:
-                    return "S Delta";
-                case Association.SurreyFemale:
-                    return "Surrey";
-                case Association.TriCitiesFemale:
-                    return "Tri-Cities";
-                case Association.VancouverGirls:
-                    return "Vancouver";
-                case Association.WesternWashingtonFemale:
-                    return "W Washington";
-                default:
-                    return "Unknown";
-            }
         }
 
         private string GetRinkName(Rink rink)
