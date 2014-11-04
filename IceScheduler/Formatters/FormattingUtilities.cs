@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IceScheduler.Formatters
 {
-    class FormattingUtilities
+    public class FormattingUtilities
     {
         public static string GetCompositeTeamName(List<Team> teams)
         {
@@ -22,7 +22,19 @@ namespace IceScheduler.Formatters
 
         public static string GetTimeRange(IceTime iceTime)
         {
-            return string.Format("{0}-{1}", iceTime.Start.ToString("h:mm"), iceTime.End.ToString("h:mmtt").ToLower());
+            return GetTimeRange(iceTime.Start, iceTime.End);
+        }
+
+        public static string GetTimeRange(TimeSpan start, TimeSpan end)
+        {
+            DateTime today = DateTime.Today;
+            return GetTimeRange(today + start, today + end);
+        }
+
+        public static string GetTimeRange(DateTime start, DateTime end)
+        {
+
+            return string.Format("{0}-{1}", start.ToString("h:mm"), end.ToString("h:mmtt").ToLower());
         }
     }
 }

@@ -105,8 +105,8 @@ namespace IceScheduler.Parsers
                         }
                         else if (header == "Skill Accelerator")
                         {
-                            // TODO: Teams?
-                            slot = new OtherSkillDevelopmentSlot(iceTime, header);
+                            List<Team> teams = ParsingUtilities.ParseRavensTeams(footer);
+                            slot = new TeamSkillDevelopmentSlot(iceTime, header, teams.ToArray());
                         }
                         else
                         {
