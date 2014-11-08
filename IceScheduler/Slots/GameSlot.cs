@@ -12,18 +12,27 @@ namespace IceScheduler.Slots
         public GameType Type { get; private set; }
         public Team HomeTeam { get; private set; }
         public Team AwayTeam { get; private set; }
+        public string OtherInfo { get; private set; }
 
         public GameSlot(IceTime iceTime, GameType type, Team homeTeam, Team awayTeam)
+            : this(iceTime, type, homeTeam, awayTeam, string.Empty)
+        {
+
+        }
+
+        public GameSlot(IceTime iceTime, GameType type, Team homeTeam, Team awayTeam, string otherInfo)
             : base(iceTime)
         {
             Type = type;
             HomeTeam = homeTeam;
             AwayTeam = awayTeam;
+            OtherInfo = otherInfo;
         }
 
         public override string ToString()
         {
-            return string.Format("{0} Game - {1} vs. {2} - {3}", Type, HomeTeam, AwayTeam, base.ToString());
+            string otherInfo = string.IsNullOrEmpty(OtherInfo) ? string.Empty : string.Format(" ({0})", OtherInfo);
+            return string.Format("{0} Game - {1} vs. {2} - {3}{4}", Type, HomeTeam, AwayTeam, base.ToString(), otherInfo);
         }
     }
 }

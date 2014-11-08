@@ -25,6 +25,8 @@ namespace IceScheduler.Parsers
             // Do not remove empty fields
             string[] fields = line.Split(new[] { ',' }, StringSplitOptions.None);
 
+            string otherInfo = fields[GameNumber];
+
             Team homeTeam = PcahaTeamParser.ParseIntoTeam(fields[HomeTeam]);
             Team awayTeam = PcahaTeamParser.ParseIntoTeam(fields[AwayTeam]);
 
@@ -42,7 +44,7 @@ namespace IceScheduler.Parsers
 
             IceTime iceTime = new IceTime(rink, startTime, endTime);
 
-            GameSlot slot = new GameSlot(iceTime, type, homeTeam, awayTeam);
+            GameSlot slot = new GameSlot(iceTime, type, homeTeam, awayTeam, otherInfo);
             return slot;
         }
 

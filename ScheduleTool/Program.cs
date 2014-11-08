@@ -134,12 +134,12 @@ namespace ScheduleTool
                 else if (processType.ToLower() == "filter")
                 {
                     Console.WriteLine("Filtering slots using '{0}'.", processArgs);
-                    if (processArgs == "richmond")
+                    if (processArgs.ToLower() == "richmond")
                     {
                         // Richmond slots
                         slots = slots.Where(s => s.ToString().Contains("Richmond")).ToList();
                     }
-                    else if (processArgs == "homegame")
+                    else if (processArgs.ToLower() == "homegame")
                     {
                         // Richmond home games
                         slots = slots.Where(s => s is GameSlot).ToList();

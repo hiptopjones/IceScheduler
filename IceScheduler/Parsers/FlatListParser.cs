@@ -44,7 +44,8 @@ namespace IceScheduler.Parsers
                     GameType type = (GameType)Enum.Parse(typeof(GameType), fields[6]);
                     Team homeTeam = ParsingUtilities.ParseTeam(fields[7]);
                     Team awayTeam = ParsingUtilities.ParseTeam(fields[8]);
-                    slot = new GameSlot(iceTime, type, homeTeam, awayTeam);
+                    string otherInfo = (fields.Length > 8 ? fields[9] : string.Empty);
+                    slot = new GameSlot(iceTime, type, homeTeam, awayTeam, otherInfo);
                 }
                 else if (fields[5] == "TeamSkills")
                 {
