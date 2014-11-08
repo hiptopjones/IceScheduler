@@ -5,8 +5,11 @@ using IceScheduler.Slots;
 using IceScheduler.Teams;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ScheduleTool
@@ -145,11 +148,25 @@ namespace ScheduleTool
                         slots = slots.Where(s => s is GameSlot).ToList();
                         slots = slots.Where(s => (s as GameSlot).HomeTeam.Association == Association.RichmondGirls).ToList();
                     }
-                    else
+                    else 
                     {
-                        Console.WriteLine("Unrecognized filter type: {0}", processArgs);
-                        PrintUsage();
-                        return;
+                        Regex regex = new Regex(@"week(\d+)-(\d+)");
+                        Match match = regex.Match(processArgs);
+                        if (match.Success)
+                        {
+                            string weekNumber = match.Groups[1].Value;
+                            string yearNumber = match.Groups[2].Value;
+                            DateTime startOfWeek = FirstDateOfWeekISO8601(Convert.ToInt32(yearNumber), Convert.ToInt32(weekNumber));
+                            DateTime endOfWeek = startOfWeek + TimeSpan.FromDays(6);
+
+                            slots = slots.Where(s => (s.IceTime.Start.Date >= startOfWeek && s.IceTime.Start.Date <= endOfWeek)).ToList();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Unrecognized filter type: {0}", processArgs);
+                            PrintUsage();
+                            return;
+                        }
                     }
                 }
                 else if (processType == "print")
@@ -201,6 +218,24 @@ namespace ScheduleTool
             WaitForKey();
         }
 
+        // http://stackoverflow.com/questions/662379/calculate-date-from-week-number
+        static DateTime FirstDateOfWeekISO8601(int year, int weekOfYear)
+        {
+            DateTime jan1 = new DateTime(year, 1, 1);
+            int daysOffset = DayOfWeek.Thursday - jan1.DayOfWeek;
+
+            DateTime firstThursday = jan1.AddDays(daysOffset);
+            var cal = CultureInfo.CurrentCulture.Calendar;
+            int firstWeek = cal.GetWeekOfYear(firstThursday, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+
+            var weekNum = weekOfYear;
+            if (firstWeek <= 1)
+            {
+                weekNum -= 1;
+            }
+            var result = firstThursday.AddDays(weekNum * 7);
+            return result.AddDays(-3);
+        }
         static void PrintUsage()
         {
             Console.WriteLine("Usage:");
@@ -211,8 +246,11 @@ namespace ScheduleTool
 
         static void WaitForKey()
         {
-            Console.Write("Hit any key to continue...");
-            Console.ReadKey();
+            if (Debugger.IsAttached)
+            {
+                Console.Write("Hit any key to continue...");
+                Console.ReadKey();
+            }
         }
     }
 }

@@ -14,16 +14,24 @@ namespace IceScheduler.Formatters
     {
         public void WriteSchedule(List<IceSlot> slots, string path)
         {
-            // Must only be a schedule for one week (Monday to Sunday)
-            if (slots.Last().IceTime.End.Date - slots.First().IceTime.Start.Date > TimeSpan.FromDays(7))
+            if (!slots.Any())
             {
-                throw new Exception("The Ravens schedule formatter only supports formatting a week at a time.");
+                // Can't write a schedule if there's nothing to show
+                return;
             }
 
-            // Must start on Monday and end on Sunday
-            if (slots.First().IceTime.Start.DayOfWeek != DayOfWeek.Monday || slots.Last().IceTime.End.DayOfWeek != DayOfWeek.Sunday)
+            DateTime startDate = slots.First().IceTime.Start.Date;
+            while (startDate.DayOfWeek != DayOfWeek.Monday)
             {
-                throw new Exception("The Ravens schedule formatter only supports schedules that start on Monday and end on Sunday.");
+                startDate -= TimeSpan.FromDays(1);
+            }
+
+            DateTime endDate = startDate + TimeSpan.FromDays(6);
+
+            // Must only be a schedule for one week (Monday to Sunday)
+            if (slots.Last().IceTime.Start.Date > endDate)
+            {
+                throw new Exception("The Ravens schedule formatter only supports formatting a week at a time (Monday to Sunday).");
             }
 
             TimeSpan startOfDay = TimeSpan.FromHours(6);
@@ -95,7 +103,7 @@ namespace IceScheduler.Formatters
             StringBuilder builder = new StringBuilder();
             builder.AppendLine("<html>");
             builder.AppendLine("<head>");
-            builder.AppendLine(string.Format("<title>Ravens Weekly Schedule - {0}</title>", slots.First().IceTime.Start.ToString("yyyyMMdd")));
+            builder.AppendLine(string.Format("<title>Ravens Weekly Schedule - {0}</title>", startDate.ToString("yyyyMMdd")));
             builder.AppendLine(GetStyleSheet());
             builder.AppendLine("</head>");
             builder.AppendLine("<body>");
@@ -103,7 +111,7 @@ namespace IceScheduler.Formatters
 
             // Title row
             builder.AppendLine("<tr>");
-            builder.AppendLine(GetTableCell("Title", string.Format("Ravens Weekly Schedule - {0}", slots.First().IceTime.Start.ToString("MMMM d, yyyy")), "colspan=\"8\""));
+            builder.AppendLine(GetTableCell("Title", string.Format("Ravens Weekly Schedule - {0}", startDate.ToString("MMMM d, yyyy")), "colspan=\"8\""));
             builder.AppendLine("</tr>");
 
             // Blank row
@@ -114,19 +122,18 @@ namespace IceScheduler.Formatters
             // Day-of-week row
             builder.AppendLine("<tr>");
             builder.AppendLine(GetTableCell("DayOfWeekTop", string.Empty));
-            foreach (DayOfWeek dayOfWeek in GetDaysOfWeek())
+            foreach (DateTime date in GetDatesOfWeek(startDate))
             {
-                builder.AppendLine(GetTableCell("DayOfWeekTop", dayOfWeek.ToString()));
+                builder.AppendLine(GetTableCell("DayOfWeekTop", date.DayOfWeek.ToString()));
             }
             builder.AppendLine("</tr>");
 
             // Day-of-month row
             builder.AppendLine("<tr>");
             builder.AppendLine(GetTableCell("DayOfWeekBottom", string.Empty));
-            var days = slots.Select(s => s.IceTime.Start.Day).Distinct();
-            foreach (int day in days)
+            foreach (DateTime date in GetDatesOfWeek(startDate))
             {
-                builder.AppendLine(GetTableCell("DayOfWeekBottom", day.ToString()));
+                builder.AppendLine(GetTableCell("DayOfWeekBottom", date.Day.ToString()));
             }
             builder.AppendLine("</tr>");
 
@@ -145,9 +152,9 @@ namespace IceScheduler.Formatters
                     builder.AppendLine(GetTableCell("RightEdge", string.Empty));
                 }
 
-                foreach (DayOfWeek dayOfWeek in GetDaysOfWeek())
+                foreach (DateTime date in GetDatesOfWeek(startDate))
                 {
-                    builder.AppendLine(dayOfWeekLists[(int)dayOfWeek][i] ?? GetTableCell("EmptyCell", string.Empty));
+                    builder.AppendLine(dayOfWeekLists[(int)date.DayOfWeek][i] ?? GetTableCell("EmptyCell", string.Empty));
                 }
                 builder.AppendLine("</tr>");
 
@@ -157,9 +164,9 @@ namespace IceScheduler.Formatters
             // Bottom day-of-week row
             builder.AppendLine("<tr>");
             builder.AppendLine(GetTableCell("DayOfWeekTop DayOfWeekBottom", string.Empty));
-            foreach (DayOfWeek dayOfWeek in GetDaysOfWeek())
+            foreach (DateTime date in GetDatesOfWeek(startDate))
             {
-                builder.AppendLine(GetTableCell("DayOfWeekTop DayOfWeekBottom", dayOfWeek.ToString()));
+                builder.AppendLine(GetTableCell("DayOfWeekTop DayOfWeekBottom", date.DayOfWeek.ToString()));
             }
             builder.AppendLine("</tr>");
 
@@ -169,9 +176,9 @@ namespace IceScheduler.Formatters
             {
                 builder.AppendLine("<tr>");
                 builder.AppendLine(GetTableCell(string.Empty));
-                foreach (DayOfWeek dayOfWeek in GetDaysOfWeek())
+                foreach (DateTime date in GetDatesOfWeek(startDate))
                 {
-                    List<string> awayGamesForDay = awayGameLists[(int)dayOfWeek];
+                    List<string> awayGamesForDay = awayGameLists[(int)date.DayOfWeek];
                     if (i < awayGamesForDay.Count)
                     {
                         builder.AppendLine(awayGamesForDay[i]);
@@ -388,18 +395,9 @@ namespace IceScheduler.Formatters
             }
         }
         
-        private List<DayOfWeek> GetDaysOfWeek()
+        private List<DateTime> GetDatesOfWeek(DateTime startDate)
         {
-            return new List<DayOfWeek>
-            {
-                DayOfWeek.Monday,
-                DayOfWeek.Tuesday,
-                DayOfWeek.Wednesday,
-                DayOfWeek.Thursday,
-                DayOfWeek.Friday,
-                DayOfWeek.Saturday,
-                DayOfWeek.Sunday
-            };
+            return Enumerable.Range(0, 7).Select(i => startDate + TimeSpan.FromDays(i)).ToList();
         }
 
         private int GetRowIndex(TimeSpan startTime, TimeSpan actualTime)
