@@ -218,6 +218,11 @@ namespace IceScheduler.Formatters
                 Team homeTeam = gameSlot.HomeTeam;
                 return GetTableCell("GameHeader", homeTeam.ToStringNoAssociation());
             }
+            else if (slot is SpecialEventSlot)
+            {
+                SpecialEventSlot eventSlot = slot as SpecialEventSlot;
+                return GetTableCell("EventHeader", eventSlot.Title);
+            }
             else
             {
                 throw new Exception(string.Format("Unhandled slot type: {0}", slot));
@@ -248,6 +253,10 @@ namespace IceScheduler.Formatters
             {
                 return GetTableCell("NormalTime", timeRange);
             }
+            else if (slot is SpecialEventSlot)
+            {
+                return GetTableCell("EventTime", timeRange);
+            }
             else
             {
                 throw new Exception(string.Format("Unhandled slot type: {0}", slot));
@@ -275,6 +284,10 @@ namespace IceScheduler.Formatters
             else if (slot is GameSlot)
             {
                 return GetTableCell("NormalRink", GetRinkName(slot.IceTime.Rink));
+            }
+            else if (slot is SpecialEventSlot)
+            {
+                return GetTableCell("EventRink", GetRinkName(slot.IceTime.Rink));
             }
             else
             {
@@ -308,6 +321,11 @@ namespace IceScheduler.Formatters
                 GameSlot gameSlot = slot as GameSlot;
                 Team awayTeam = gameSlot.AwayTeam;
                 return GetTableCell("GameFooter", string.Format("v. {0}", awayTeam.ToStringVersus()));
+            }
+            else if (slot is SpecialEventSlot)
+            {
+                SpecialEventSlot eventSlot = slot as SpecialEventSlot;
+                return GetTableCell("EventFooter", eventSlot.SubTitle);
             }
             else
             {

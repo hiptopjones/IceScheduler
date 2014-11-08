@@ -56,6 +56,10 @@ namespace IceScheduler.Parsers
                 {
                     slot = new OtherSkillDevelopmentSlot(iceTime, fields[6]);
                 }
+                else if (fields[5] == "SpecialEvent")
+                {
+                    slot = new SpecialEventSlot(iceTime, fields[6], fields.Length > 7 ? fields[7] : string.Empty);
+                }
 
                 schedule.Add(slot);
             }

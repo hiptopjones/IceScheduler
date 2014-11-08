@@ -81,6 +81,30 @@
     border-left:1.0pt solid black;
     border-bottom:1.0pt solid black; 
 }
+.EventHeader {
+    background:orange; 
+    font-weight:700; 
+    border-top:1.0pt solid black; 
+    border-right:1.0pt solid black;
+    border-left:1.0pt solid black;
+}
+.EventTime {
+    background:orange; 
+    border-right:1.0pt solid black;
+    border-left:1.0pt solid black;
+}
+.EventRink {
+    background:orange; 
+    border-right:1.0pt solid black;
+    border-left:1.0pt solid black;
+}
+.EventFooter {
+    background:orange; 
+    font-weight:700; 
+    border-right:1.0pt solid black;
+    border-left:1.0pt solid black;
+    border-bottom:1.0pt solid black; 
+}
 .DayOfWeekTop {
     font-weight:900; 
     border-top:2.0pt solid black;

@@ -152,6 +152,10 @@ namespace ScheduleTool
                         return;
                     }
                 }
+                else if (processType == "print")
+                {
+                    slots.ForEach(s => Console.WriteLine(s.ToString()));
+                }
                 else
                 {
                     Console.WriteLine("Unrecognized process type: {0}", processType);
