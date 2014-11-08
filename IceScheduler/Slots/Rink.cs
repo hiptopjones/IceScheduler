@@ -23,6 +23,7 @@ namespace IceScheduler.Slots
         AbbotsfordCentreIceBlue,
         BellinghamSportsplex,
         BurnabyLake,
+        BurnabyWinterClub,
         ChilliwackTwin2,
         Cloverdale,
         CoquitlamMain,

@@ -2,6 +2,7 @@
 using IceScheduler.Formatters;
 using IceScheduler.Parsers;
 using IceScheduler.Slots;
+using IceScheduler.Teams;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -98,16 +99,28 @@ namespace ScheduleTool
                 }
             }
 
-            Console.WriteLine("Processing {0} slots.", slots.Count);
+            Console.WriteLine("Read {0} slots.", slots.Count);
 
             if (!string.IsNullOrEmpty(processType))
             {
                 if (processType.ToLower() == "sort")
                 {
-                    slots = slots.OrderBy(s => s.IceTime.Start).ToList();
+                    Console.WriteLine("Sorting slots using '{0}'.", processArgs);
+                    if (processArgs.ToLower() == "start")
+                    {
+                        slots = slots.OrderBy(s => s.IceTime.Start).ToList();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Unrecognized sort type: {0}", processArgs);
+                        PrintUsage();
+                        return;
+                    }
                 }
                 else if (processType.ToLower() == "rebase")
                 {
+                    Console.WriteLine("Rebasing slots using '{0}'.", processArgs);
+
                     DateTime oldStartDate = slots.First().IceTime.Start.Date;
                     DateTime newStartDate = DateTime.Parse(processArgs);
                     TimeSpan delta = newStartDate - oldStartDate;
@@ -118,14 +131,37 @@ namespace ScheduleTool
                         return s;
                     }).ToList();
                 }
+                else if (processType.ToLower() == "filter")
+                {
+                    Console.WriteLine("Filtering slots using '{0}'.", processArgs);
+                    if (processArgs == "richmond")
+                    {
+                        // Richmond slots
+                        slots = slots.Where(s => s.ToString().Contains("Richmond")).ToList();
+                    }
+                    else if (processArgs == "homegame")
+                    {
+                        // Richmond home games
+                        slots = slots.Where(s => s is GameSlot).ToList();
+                        slots = slots.Where(s => (s as GameSlot).HomeTeam.Association == Association.RichmondGirls).ToList();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Unrecognized filter type: {0}", processArgs);
+                        PrintUsage();
+                        return;
+                    }
+                }
                 else
                 {
-                    Console.WriteLine("Unrecognized sort type: {0}", processType);
+                    Console.WriteLine("Unrecognized process type: {0}", processType);
                     PrintUsage();
                     return;
                 }
             }
-            
+
+            Console.WriteLine("Writing {0} slots.", slots.Count);
+
             if (!string.IsNullOrEmpty(outputType))
             {
                 if (string.IsNullOrEmpty(outputPath))

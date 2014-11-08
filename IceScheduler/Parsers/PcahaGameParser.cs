@@ -56,6 +56,7 @@ namespace IceScheduler.Parsers
             { "Abbotsford Centre Ice 1 Blue", Rink.AbbotsfordCentreIceBlue },
             { "Bellingham Sportsplex", Rink.BellinghamSportsplex },
             { "Burnaby Lake Arena", Rink.BurnabyLake },
+            { "Burnaby Winter Club", Rink.BurnabyWinterClub },
             { "Chilliwack Twin Rinks 2", Rink.ChilliwackTwin2 },
             { "Cloverdale Arena", Rink.Cloverdale },
             { "Coquitlam Main", Rink.CoquitlamMain },
