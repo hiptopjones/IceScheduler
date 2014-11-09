@@ -158,6 +158,10 @@ namespace ScheduleTool
                         slots = slots.Where(s => s is GameSlot).ToList();
                         slots = slots.Where(s => (s as GameSlot).IceTime.Start != DateTime.MinValue).ToList();
                     }
+                    else if (processArgs.ToLower() == "nongame")
+                    {
+                        slots = slots.Where(s => !(s is GameSlot)).ToList();
+                    }
                     else 
                     {
                         Regex regex = new Regex(@"week(\d+)-(\d+)");
