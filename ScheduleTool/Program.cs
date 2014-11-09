@@ -87,7 +87,7 @@ namespace ScheduleTool
                 {
                     // TODO: How to get game type in here?
                     PcahaScheduleParser parser = new PcahaScheduleParser();
-                    slots = parser.Parse(GameType.Tiering, inputPath);
+                    slots = parser.Parse(GameType.League, inputPath);
                 }
                 else if (inputType.ToLower() == "flat")
                 {
@@ -147,6 +147,16 @@ namespace ScheduleTool
                         // Richmond home games
                         slots = slots.Where(s => s is GameSlot).ToList();
                         slots = slots.Where(s => (s as GameSlot).HomeTeam.Association == Association.RichmondGirls).ToList();
+                    }
+                    else if (processArgs.ToLower() == "conflict")
+                    {
+                        slots = slots.Where(s => s is GameSlot).ToList();
+                        slots = slots.Where(s => (s as GameSlot).IceTime.Start == DateTime.MinValue).ToList();
+                    }
+                    else if (processArgs.ToLower() == "nonconflict")
+                    {
+                        slots = slots.Where(s => s is GameSlot).ToList();
+                        slots = slots.Where(s => (s as GameSlot).IceTime.Start != DateTime.MinValue).ToList();
                     }
                     else 
                     {
