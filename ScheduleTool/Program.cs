@@ -187,6 +187,14 @@ namespace ScheduleTool
                 {
                     slots.ForEach(s => Console.WriteLine(s.ToString()));
                 }
+                else if (processType == "check")
+                {
+                    MultipleIceSlotFinder finder = new MultipleIceSlotFinder();
+                    List<IceSlot> multipleSlots = finder.FindMultiples(slots);
+
+                    Console.WriteLine("Found {0} slots on the same day as other slots.", multipleSlots.Count);
+                    multipleSlots.ForEach(s => Console.WriteLine(s.ToString()));
+                }
                 else
                 {
                     Console.WriteLine("Unrecognized process type: {0}", processType);
@@ -194,8 +202,6 @@ namespace ScheduleTool
                     return;
                 }
             }
-
-            Console.WriteLine("Writing {0} slots.", slots.Count);
 
             if (!string.IsNullOrEmpty(outputType))
             {
@@ -205,6 +211,8 @@ namespace ScheduleTool
                     PrintUsage();
                     return;
                 }
+
+                Console.WriteLine("Writing {0} slots.", slots.Count);
 
                 if (outputType.ToLower() == "flat")
                 {

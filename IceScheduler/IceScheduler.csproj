@@ -70,6 +70,7 @@
     <Compile Include="Formatters\FlatListFormatter.cs" />
     <Compile Include="Formatters\RavensScheduleFormatter.cs" />
     <Compile Include="Formatters\TeamPagesFormatter.cs" />
+    <Compile Include="MultipleIceSlotFinder.cs" />
     <Compile Include="Parsers\FlatListParser.cs" />
     <Compile Include="Parsers\ParsingUtilities.cs" />
     <Compile Include="Parsers\RavensScheduleParser.cs" />
