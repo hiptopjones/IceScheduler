@@ -46,10 +46,10 @@ namespace IceScheduler.Formatters
             }
 
             // Initialize the day-of-week lists and rows
-            List<string>[] awayGameLists = new List<string>[7];
-            for (int i = 0; i < awayGameLists.Length; i++)
+            List<string>[] awayLists = new List<string>[7];
+            for (int i = 0; i < awayLists.Length; i++)
             {
-                awayGameLists[i] = new List<string>();
+                awayLists[i] = new List<string>();
             }
 
             // Fit the formatted slots in the day-of-week columns
@@ -66,13 +66,20 @@ namespace IceScheduler.Formatters
                 int dayOfWeekIndex = (int)slot.IceTime.Start.DayOfWeek;
                 string[] dayOfWeekRows = dayOfWeekLists[dayOfWeekIndex];
 
+                if (slot is TournamentSlot)
+                {
+                    TournamentSlot tournamentSlot = slot as TournamentSlot;
+                    awayLists[dayOfWeekIndex].Add(GetTournamentCell(tournamentSlot));
+                    continue;
+                }
+
                 GameSlot gameSlot = slot as GameSlot;
                 if (gameSlot != null)
                 {
                     // TODO: Need to handle case where two Ravens teams play each other
                     if (gameSlot.HomeTeam.Association != Association.RichmondGirls)
                     {
-                        awayGameLists[dayOfWeekIndex].Add(GetAwayGameCell(gameSlot));
+                        awayLists[dayOfWeekIndex].Add(GetAwayGameCell(gameSlot));
                         continue;
                     }
                 }
@@ -171,14 +178,14 @@ namespace IceScheduler.Formatters
             builder.AppendLine("</tr>");
 
             // Away game rows
-            int awayRows = awayGameLists.Max(list => list.Count);
+            int awayRows = awayLists.Max(list => list.Count);
             for (int i = 0; i < awayRows; i++)
             {
                 builder.AppendLine("<tr>");
                 builder.AppendLine(GetTableCell(string.Empty));
                 foreach (DateTime date in GetDatesOfWeek(startDate))
                 {
-                    List<string> awayGamesForDay = awayGameLists[(int)date.DayOfWeek];
+                    List<string> awayGamesForDay = awayLists[(int)date.DayOfWeek];
                     if (i < awayGamesForDay.Count)
                     {
                         builder.AppendLine(awayGamesForDay[i]);
@@ -362,8 +369,14 @@ namespace IceScheduler.Formatters
 
         private string GetAwayGameCell(GameSlot gameSlot)
         {
-            string awayGame = string.Format("{0} Away", gameSlot.AwayTeam.ToStringNoAssociation());
-            return GetTableCell(awayGame);
+            string teamAway = string.Format("{0} Away", gameSlot.AwayTeam.ToStringNoAssociation());
+            return GetTableCell(teamAway);
+        }
+
+        private string GetTournamentCell(TournamentSlot tournamentSlot)
+        {
+            string teamAway = string.Format("{0} Away", tournamentSlot.Team.ToStringNoAssociation());
+            return GetTableCell(teamAway);
         }
 
         private string GetRinkName(Rink rink)

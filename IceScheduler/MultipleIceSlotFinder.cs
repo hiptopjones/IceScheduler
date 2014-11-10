@@ -63,6 +63,11 @@ namespace IceScheduler
                 TeamSkillDevelopmentSlot skillSlot = slot as TeamSkillDevelopmentSlot;
                 teams.AddRange(skillSlot.Teams);
             }
+            else if (slot is TournamentSlot)
+            {
+                TournamentSlot tournamentSlot = slot as TournamentSlot;
+                teams.Add(tournamentSlot.Team);
+            }
 
             return teams;
         }

@@ -161,6 +161,10 @@ namespace IceScheduler.Formatters
                         slotsForTeam.Add(gameSlot);
                     }
                 }
+                else if (slot is TournamentSlot)
+                {
+                    // Ignore
+                }
             }
 
             return slotsForTeam;

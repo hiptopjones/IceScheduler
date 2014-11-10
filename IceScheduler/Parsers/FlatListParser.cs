@@ -44,7 +44,8 @@ namespace IceScheduler.Parsers
                     GameType type = (GameType)Enum.Parse(typeof(GameType), fields[6]);
                     Team homeTeam = ParsingUtilities.ParseTeam(fields[7]);
                     Team awayTeam = ParsingUtilities.ParseTeam(fields[8]);
-                    string otherInfo = (fields.Length > 9 ? fields[9] : string.Empty);
+                    string otherInfo = fields[9];
+
                     slot = new GameSlot(iceTime, type, homeTeam, awayTeam, otherInfo);
                 }
                 else if (fields[5] == "TeamSkills")
@@ -59,7 +60,12 @@ namespace IceScheduler.Parsers
                 }
                 else if (fields[5] == "SpecialEvent")
                 {
-                    slot = new SpecialEventSlot(iceTime, fields[6], fields.Length > 7 ? fields[7] : string.Empty);
+                    slot = new SpecialEventSlot(iceTime, fields[6], fields[7]);
+                }
+                else if (fields[5] == "Tournament")
+                {
+                    List<Team> teams = ParsingUtilities.ParseRavensTeams(fields[6]);
+                    slot = new TournamentSlot(iceTime, teams[0], fields[7]);
                 }
 
                 schedule.Add(slot);

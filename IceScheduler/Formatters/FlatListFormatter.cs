@@ -53,14 +53,6 @@ namespace IceScheduler.Formatters
                     OtherSkillDevelopmentSlot skillsSlot = slot as OtherSkillDevelopmentSlot;
                     fields.Add(skillsSlot.Name);
                 }
-                else if (slot is SpecialEventSlot)
-                {
-                    fields.Add("SpecialEvent");
-
-                    SpecialEventSlot eventSlot = slot as SpecialEventSlot;
-                    fields.Add(eventSlot.Title);
-                    fields.Add(eventSlot.SubTitle);
-                }
                 else if (slot is GameSlot)
                 {
                     fields.Add("Game");
@@ -69,6 +61,22 @@ namespace IceScheduler.Formatters
                     fields.Add(gameSlot.Type.ToString());
                     fields.Add(gameSlot.HomeTeam.ToString());
                     fields.Add(gameSlot.AwayTeam.ToString());
+                }
+                else if (slot is SpecialEventSlot)
+                {
+                    fields.Add("SpecialEvent");
+
+                    SpecialEventSlot eventSlot = slot as SpecialEventSlot;
+                    fields.Add(eventSlot.Title);
+                    fields.Add(eventSlot.SubTitle);
+                }
+                else if (slot is TournamentSlot)
+                {
+                    fields.Add("Tournament");
+
+                    TournamentSlot tournamentSlot = slot as TournamentSlot;
+                    fields.Add(tournamentSlot.Team.ToString());
+                    fields.Add(tournamentSlot.Name);
                 }
                 else
                 {

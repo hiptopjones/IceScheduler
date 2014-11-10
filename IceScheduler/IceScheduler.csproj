@@ -81,6 +81,7 @@
     <Compile Include="ScheduleValidator.cs" />
     <Compile Include="Slots\IceSlot.cs" />
     <Compile Include="Slots\AvailableSlot.cs" />
+    <Compile Include="Slots\TournamentSlot.cs" />
     <Compile Include="Slots\SpecialEventSlot.cs" />
     <Compile Include="Slots\TeamSkillDevelopmentSlot.cs" />
     <Compile Include="Slots\OtherSkillDevelopmentSlot.cs" />
