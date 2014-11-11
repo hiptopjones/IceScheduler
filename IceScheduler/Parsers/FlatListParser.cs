@@ -20,6 +20,12 @@ namespace IceScheduler.Parsers
 
             foreach (string line in lines)
             {
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    // Ignore empty lines
+                    continue;
+                }
+
                 // DayOfWeek, Date, StartTime, EndTime, Rink, Type, Type-Specific-Fields
                 string[] fields = line.Split(new[] { ',' }, StringSplitOptions.None);
 
