@@ -82,6 +82,9 @@ namespace IceScheduler.Parsers
                 schedule.Add(slot);
             }
 
+            // Always provide the slots sorted by start time
+            schedule = schedule.OrderBy(s => s.IceTime.Start).ToList();
+
             return schedule;
         }
     }
