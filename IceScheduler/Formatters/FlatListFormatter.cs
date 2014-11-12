@@ -61,6 +61,7 @@ namespace IceScheduler.Formatters
                     fields.Add(gameSlot.Type.ToString());
                     fields.Add(gameSlot.HomeTeam.ToString());
                     fields.Add(gameSlot.AwayTeam.ToString());
+                    fields.Add(gameSlot.OtherInfo);
                 }
                 else if (slot is SpecialEventSlot)
                 {
