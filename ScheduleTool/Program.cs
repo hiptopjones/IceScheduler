@@ -227,7 +227,7 @@ namespace ScheduleTool
                 else if (outputType.ToLower() == "import")
                 {
                     TeamPagesFormatter formatter = new TeamPagesFormatter();
-                    formatter.WriteSchedule(slots, outputPath);
+                    formatter.WriteAllSchedules(slots, outputPath);
                 }
                 else
                 {

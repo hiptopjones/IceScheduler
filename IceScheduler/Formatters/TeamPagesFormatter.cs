@@ -12,21 +12,36 @@ namespace IceScheduler.Formatters
     // Produces one file per team.
     public class TeamPagesFormatter
     {
-        public void WriteSchedule(List<IceSlot> slots, string path)
+        public void WriteAllSchedules(List<IceSlot> slots, string outputDirectory)
         {
+            // Ensure the output directory eixsts
+            Directory.CreateDirectory(outputDirectory);
+
             foreach (Team team in GetRavensTeams())
             {
-                Console.WriteLine("Slots for {0}", team);
+                Console.WriteLine("Writing slots for {0}...", team);
 
                 List<IceSlot> slotsForTeam = GetSlotsForTeam(slots, team);
 
-                // Ensure the directory eixsts
-                Directory.CreateDirectory(path);
-                string teamPath = Path.Combine(path, string.Format("{0}_schedule.csv", team.ToStringNoAssociation().Replace(" ", "")));
+                string teamName = team.ToStringNoAssociation().Replace(" ", "");
+                WriteSchedule(slotsForTeam, CreateTeamSchedulePath(outputDirectory, teamName));
+            }
 
-                using (StreamWriter writer = new StreamWriter(teamPath))
-                {
-                    string[] fields = new[]
+            Console.WriteLine("Writing available slots...");
+            List<IceSlot> availableSlots = slots.Where(s => (s is AvailableSlot)).ToList();
+            WriteSchedule(availableSlots, CreateTeamSchedulePath(outputDirectory, "Available"));
+        }
+
+        private string CreateTeamSchedulePath(string outputDirectory, string teamName)
+        {
+            return Path.Combine(outputDirectory, string.Format("{0}_schedule.csv", teamName));
+        }
+
+        private void WriteSchedule(List<IceSlot> slots, string schedulePath)
+        {
+            using (StreamWriter writer = new StreamWriter(schedulePath))
+            {
+                string[] fields = new[]
                     {
                         "Type",
                         "Date",
@@ -37,59 +52,63 @@ namespace IceScheduler.Formatters
                         "Location",
                     };
 
-                    writer.WriteLine(string.Join(",", fields));
+                writer.WriteLine(string.Join(",", fields));
 
-                    foreach (IceSlot slot in slotsForTeam)
+                foreach (IceSlot slot in slots)
+                {
+                    Console.WriteLine(slot.ToString());
+
+                    string type = string.Empty;
+                    string date = string.Empty;
+                    string start = string.Empty;
+                    string finish = string.Empty;
+                    string opponent = string.Empty;
+                    string home = string.Empty;
+                    string location = string.Empty;
+
+                    if (slot is PracticeSlot)
                     {
-                        Console.WriteLine(slot.ToString());
-
-                        string type = string.Empty;
-                        string date = string.Empty;
-                        string start = string.Empty;
-                        string finish = string.Empty;
-                        string opponent = string.Empty;
-                        string home = string.Empty;
-                        string location = string.Empty;
-
-                        if (slot is PracticeSlot)
+                        type = "Practice";
+                        opponent = "Ignore";
+                    }
+                    else if (slot is TeamSkillDevelopmentSlot)
+                    {
+                        TeamSkillDevelopmentSlot skillsSlot = slot as TeamSkillDevelopmentSlot;
+                        if (skillsSlot.Name != "Development")
                         {
-                            type = "Practice";
-                            opponent = "Ignore";
-                        }
-                        else if (slot is TeamSkillDevelopmentSlot)
-                        {
-                            TeamSkillDevelopmentSlot skillsSlot = slot as TeamSkillDevelopmentSlot;
-                            if (skillsSlot.Name != "Development")
-                            {
-                                // Ignore Accelerator, etc.
-                                continue;
-                            }
-
-                            type = "Skills Development";
-                            opponent = "Skills Session";
-                        }
-                        else if (slot is GameSlot)
-                        {
-                            GameSlot gameSlot = slot as GameSlot;
-
-                            type = "League Game";
-                            home = "@";
-                            opponent = gameSlot.HomeTeam.ToStringVersus();
-
-                            // TODO: Need to handle case where two Ravens teams play each other
-                            if (gameSlot.HomeTeam.Association == Association.RichmondGirls)
-                            {
-                                home = "vs.";
-                                opponent = gameSlot.AwayTeam.ToStringVersus();
-                            }
+                            // Ignore Accelerator, etc.
+                            continue;
                         }
 
-                        date = slot.IceTime.Start.ToString("dd-MMM-yyyy");
-                        start = slot.IceTime.Start.ToString("hh:mm tt");
-                        finish = slot.IceTime.End.ToString("hh:mm tt");
-                        location = RinkMapping[slot.IceTime.Rink];
+                        type = "Skills Development";
+                        opponent = "Skills Session";
+                    }
+                    else if (slot is GameSlot)
+                    {
+                        GameSlot gameSlot = slot as GameSlot;
 
-                        string[] data = new[]
+                        type = "League Game";
+                        home = "@";
+                        opponent = gameSlot.HomeTeam.ToStringVersus();
+
+                        // TODO: Need to handle case where two Ravens teams play each other
+                        if (gameSlot.HomeTeam.Association == Association.RichmondGirls)
+                        {
+                            home = "vs.";
+                            opponent = gameSlot.AwayTeam.ToStringVersus();
+                        }
+                    }
+                    else if (slot is AvailableSlot)
+                    {
+                        type = "Available";
+                    }
+
+                    date = slot.IceTime.Start.ToString("dd-MMM-yyyy");
+                    start = slot.IceTime.Start.ToString("hh:mm tt");
+                    finish = slot.IceTime.End.ToString("hh:mm tt");
+                    location = RinkMapping[slot.IceTime.Rink];
+
+                    string[] data = new[]
                         {
                             type,
                             date,
@@ -100,9 +119,7 @@ namespace IceScheduler.Formatters
                             location,
                         };
 
-                        writer.WriteLine(string.Join(",", data));
-
-                    }
+                    writer.WriteLine(string.Join(",", data));
                 }
             }
         }
