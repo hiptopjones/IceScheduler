@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IceScheduler.Slots
 {
-    public class PracticeSlot : IceSlot
+    public class PracticeSlot : TeamBasedIceSlot
     {
         public List<Team> Teams { get; private set; }
 
@@ -15,6 +15,11 @@ namespace IceScheduler.Slots
             : base(iceTime)
         {
             Teams = new List<Team>(teams);
+        }
+
+        public override List<Team> GetParticipatingTeams()
+        {
+            return Teams;
         }
 
         public override string ToString()

@@ -106,10 +106,12 @@ namespace ScheduleTool
 
             if (!string.IsNullOrEmpty(processType))
             {
+                string processArgsLower = processArgs.ToLower();
+
                 if (processType.ToLower() == "sort")
                 {
                     Console.WriteLine("Sorting slots using '{0}'.", processArgs);
-                    if (processArgs.ToLower() == "start")
+                    if (processArgsLower == "start")
                     {
                         slots = slots.OrderBy(s => s.IceTime.Start).ToList();
                     }
@@ -137,30 +139,51 @@ namespace ScheduleTool
                 else if (processType.ToLower() == "filter")
                 {
                     Console.WriteLine("Filtering slots using '{0}'.", processArgs);
-                    if (processArgs.ToLower() == "richmond")
+
+                    if (processArgsLower == "richmond")
                     {
                         // Richmond slots
                         slots = slots.Where(s => s.ToString().Contains("Richmond")).ToList();
                     }
-                    else if (processArgs.ToLower() == "homegame")
+                    else if (processArgsLower == "homegame")
                     {
                         // Richmond home games
                         slots = slots.Where(s => s is GameSlot).ToList();
                         slots = slots.Where(s => (s as GameSlot).HomeTeam.Association == Association.RichmondGirls).ToList();
                     }
-                    else if (processArgs.ToLower() == "conflict")
+                    else if (processArgsLower == "conflict")
                     {
                         slots = slots.Where(s => s is GameSlot).ToList();
                         slots = slots.Where(s => (s as GameSlot).IceTime.Start == DateTime.MinValue).ToList();
                     }
-                    else if (processArgs.ToLower() == "nonconflict")
+                    else if (processArgsLower == "nonconflict")
                     {
                         slots = slots.Where(s => s is GameSlot).ToList();
                         slots = slots.Where(s => (s as GameSlot).IceTime.Start != DateTime.MinValue).ToList();
                     }
-                    else if (processArgs.ToLower() == "nongame")
+                    else if (processArgsLower == "nongame")
                     {
                         slots = slots.Where(s => !(s is GameSlot)).ToList();
+                    }
+                    else if (processArgsLower.StartsWith("teams"))
+                    {
+                        List<IceSlot> filteredSlots = new List<IceSlot>();
+
+                        string[] teamNames = processArgs.Split(new[] { ' ' });
+                        for (int i = 1; i < teamNames.Length; i++)
+                        {
+                            List<Team> teams = ParsingUtilities.ParseRavensTeams(teamNames[i]);
+                            foreach (Team team in teams)
+                            {
+                                filteredSlots.AddRange(slots.Where(s =>
+                                {
+                                    TeamBasedIceSlot teamSlot = s as TeamBasedIceSlot;
+                                    return teamSlot != null && teamSlot.HasParticipatingTeam(team);
+                                }));
+                            }
+                        }
+
+                        slots = filteredSlots;
                     }
                     else 
                     {

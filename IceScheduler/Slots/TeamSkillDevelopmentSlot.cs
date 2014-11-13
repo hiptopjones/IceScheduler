@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IceScheduler.Slots
 {
-    public class TeamSkillDevelopmentSlot : IceSlot
+    public class TeamSkillDevelopmentSlot : TeamBasedIceSlot
     {
         public string Name { get; private set; }
         public List<Team> Teams { get; private set; }
@@ -17,6 +17,11 @@ namespace IceScheduler.Slots
         {
             Name = name;
             Teams = new List<Team>(teams);
+        }
+
+        public override List<Team> GetParticipatingTeams()
+        {
+            return Teams;
         }
 
         public override string ToString()
