@@ -276,6 +276,11 @@ namespace ScheduleTool
                     TeamPagesFormatter formatter = new TeamPagesFormatter();
                     formatter.WriteAllSchedules(slots, outputPath);
                 }
+                else if (outputType.ToLower() == "matrix")
+                {
+                    ConflictMatrixFormatter formatter = new ConflictMatrixFormatter();
+                    formatter.WriteSchedule(slots, outputPath);
+                }
                 else
                 {
                     Console.WriteLine("Unrecognized output type: {0}", outputType);

@@ -70,6 +70,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formatters\ConflictMatrixFormatter.cs" />
     <Compile Include="Formatters\FlatListFormatter.cs" />
     <Compile Include="Formatters\RavensScheduleFormatter.cs" />
     <Compile Include="Formatters\TeamPagesFormatter.cs" />
