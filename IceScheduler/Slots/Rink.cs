@@ -38,6 +38,7 @@ namespace IceScheduler.Slots
         Killarney,
         LangleySportsplex1,
         LangleySportsplex2,
+        LangleySportsplex4,
         LangleyTwin1,
         AbbotsfordMSA,
         AbbotsfordMRC,

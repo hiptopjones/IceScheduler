@@ -102,6 +102,11 @@ namespace ScheduleTool
                     FlatListParser parser = new FlatListParser();
                     slots = inputPaths.SelectMany(inputPath => parser.Parse(inputPath)).ToList();
                 }
+                else if (inputType.ToLower() == "teamlink")
+                {
+                    TeamLinkParser parser = new TeamLinkParser();
+                    slots = parser.ParseSchedule();
+                }
                 else
                 {
                     Console.WriteLine("Unrecognized input type: {0}", inputType);

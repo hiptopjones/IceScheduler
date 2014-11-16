@@ -16,7 +16,7 @@ namespace IceScheduler.Parsers
             // <Association> <Division> <Level><Flight>
             // eg. Western Washington Female Midget C1
 
-            string[] teamNameParts = teamName.Split(new[] { ' ' });
+            string[] teamNameParts = teamName.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
             string levelAndFlight = teamNameParts[teamNameParts.Length - 1];
             string divisionName = teamNameParts[teamNameParts.Length - 2];
@@ -26,7 +26,7 @@ namespace IceScheduler.Parsers
             Division division = PcahaDivisionMap[divisionName];
 
             // Parsing the "C1"
-            Regex regex = new Regex(@"^([A-Z]+)(\d+)");
+            Regex regex = new Regex(@"^([A-Z]+)(\d+)?");
             Match match = regex.Match(levelAndFlight);
             if (!match.Success)
             {
@@ -34,7 +34,13 @@ namespace IceScheduler.Parsers
             }
 
             Level level = PcahaLevelMap[match.Groups[1].Value];
-            int flight = Int32.Parse(match.Groups[2].Value);
+
+            // Flight may be omitted on some teams
+            int flight = 1;
+            if (!string.IsNullOrEmpty(match.Groups[2].Value))
+            {
+                flight = Int32.Parse(match.Groups[2].Value);
+            }
 
             return new Team(association, division, level, flight);
         }
@@ -69,6 +75,7 @@ namespace IceScheduler.Parsers
             {"South Delta Female", Association.SouthDeltaFemale},
             {"Surrey Female", Association.SurreyFemale},
             {"Tri-Cities Female", Association.TriCitiesFemale},
+            {"Tri Cities Female", Association.TriCitiesFemale},
             {"Vancouver Girls", Association.VancouverGirls},
             {"Western Washington Female", Association.WesternWashingtonFemale},
         };

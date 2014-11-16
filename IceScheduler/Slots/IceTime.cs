@@ -22,6 +22,14 @@ namespace IceScheduler.Slots
             End = end;
         }
 
+        public IceTime(Rink rink, DateTime date, TimeSpan startTime, TimeSpan endTime)
+        {
+            Rink = rink;
+
+            Start = date + startTime;
+            End = date + endTime;
+        }
+
         public IceTime(Rink rink, DayOfWeek dayOfWeek, TimeSpan startTime, TimeSpan endTime)
         {
             Rink = rink;
