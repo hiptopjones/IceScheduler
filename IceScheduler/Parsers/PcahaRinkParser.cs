@@ -16,6 +16,7 @@ namespace IceScheduler.Parsers
 
         public static Dictionary<string, Rink> PcahaRinkMap = new Dictionary<string, Rink>
         {
+            { "Abbotsford Centre Arena", Rink.AbbotsfordCentreIceBlue },  // TODO: Is this right?
             { "Abbotsford Centre Ice 1 Blue", Rink.AbbotsfordCentreIceBlue },
             { "Bellingham Sportsplex", Rink.BellinghamSportsplex },
             { "Burnaby Lake Arena", Rink.BurnabyLake },
