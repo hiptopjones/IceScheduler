@@ -40,6 +40,7 @@ namespace IceScheduler.Parsers
             { "MSA Arena - Abbotsford", Rink.AbbotsfordMSA },
             { "Matsqui Recreation Centre", Rink.AbbotsfordMRC },
             { "Minoru Arena Silver Spectrum", Rink.Silver },
+            { "Minoru Arena Stadium", Rink.Stadium },
             { "Newton Arena", Rink.Newton },
             { "North Shore Winter Club", Rink.NorthShoreWinterClub },
             { "North Surrey Arena 2", Rink.NorthSurrey2 },

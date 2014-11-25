@@ -25,6 +25,8 @@ namespace IceScheduler.Formatters
 
                 string teamName = team.ToStringNoAssociation().Replace(" ", "");
                 WriteSchedule(slotsForTeam, CreateTeamSchedulePath(outputDirectory, teamName));
+
+                Console.WriteLine();
             }
 
             Console.WriteLine("Writing available slots...");
