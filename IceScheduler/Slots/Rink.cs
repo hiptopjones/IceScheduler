@@ -57,6 +57,7 @@ namespace IceScheduler.Slots
         PocoBlue,
         PocoGreen,
         PortMoody2,
+        SouthDeltaTsawwassen,
         Sunset,
         SurreyLeisure1,
         SurreyLeisure2,

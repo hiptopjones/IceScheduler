@@ -63,6 +63,7 @@ namespace IceScheduler.Parsers
             { "Richmond Ice Centre Pond", Rink.Pond },
             { "Richmond Olympic Oval North", Rink.OvalNorth },
             { "Richmond Olympic Oval South", Rink.OvalSouth },
+            { "South Delta Recreation Centre - Tsawwassen", Rink.SouthDeltaTsawwassen },
             { "Sunset Arena", Rink.Sunset },
             { "Surrey Sport & Leisure Centre Arena 1 Blue", Rink.SurreyLeisure1 },
             { "Surrey Sport & Leisure Centre Arena 2 Purple", Rink.SurreyLeisure2 },
