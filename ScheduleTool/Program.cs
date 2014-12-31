@@ -105,7 +105,7 @@ namespace ScheduleTool
                 else if (inputType.ToLower() == "teamlink")
                 {
                     TeamLinkParser parser = new TeamLinkParser();
-                    slots = parser.ParseSchedule();
+                    slots = inputPaths.SelectMany(teamGrouping => parser.ParseSchedule(teamGrouping)).ToList();
                 }
                 else
                 {

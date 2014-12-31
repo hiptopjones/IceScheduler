@@ -64,10 +64,10 @@ namespace IceScheduler.Parsers
             return pairs;
         }
 
-        public List<IceSlot> ParseSchedule()
+        public List<IceSlot> ParseSchedule(string teamGrouping)
         {
             HtmlWeb web = new HtmlWeb();
-            HtmlDocument doc = SubmitFormValues(web, GetFormValues("Peewee A", GameType.League), TeamLinkScheduleUrl);
+            HtmlDocument doc = SubmitFormValues(web, GetFormValues(teamGrouping, GameType.League), TeamLinkScheduleUrl);
 
             return ParseSchedule(doc);
         }

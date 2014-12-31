@@ -16,8 +16,12 @@ namespace IceScheduler.Parsers
             // <Association> <Division> <Level><Flight>
             // eg. Western Washington Female Midget C1
 
-            string[] teamNameParts = teamName.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (teamName.EndsWith("Juvenile"))
+            {
+                teamName += " C1";
+            }
 
+            string[] teamNameParts = teamName.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             string levelAndFlight = teamNameParts[teamNameParts.Length - 1];
             string divisionName = teamNameParts[teamNameParts.Length - 2];
             string associationName = string.Join(" ", teamNameParts, 0, teamNameParts.Length - 2);
