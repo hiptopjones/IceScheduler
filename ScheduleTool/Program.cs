@@ -259,6 +259,13 @@ namespace ScheduleTool
                     return;
                 }
 
+                if (inputPaths.Any(path => (path.ToLower() == outputPath.ToLower())))
+                {
+                    Console.WriteLine("Input and output paths must be distinct.");
+                    PrintUsage();
+                    return;
+                }
+
                 Console.WriteLine("Writing {0} slots.", slots.Count);
 
                 if (outputType.ToLower() == "flat")

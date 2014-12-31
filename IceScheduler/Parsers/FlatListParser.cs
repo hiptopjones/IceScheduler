@@ -78,6 +78,10 @@ namespace IceScheduler.Parsers
 
                     slot = new TournamentSlot(iceTime, teams.First(), tounamentName);
                 }
+                else
+                {
+                    throw new Exception(string.Format("Unknown slot type: {0}", fields[5]));
+                }
 
                 schedule.Add(slot);
             }
