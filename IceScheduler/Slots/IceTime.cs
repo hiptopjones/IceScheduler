@@ -11,6 +11,13 @@ namespace IceScheduler.Slots
         public Rink Rink { get; private set; }
         public DateTime Start { get; private set; }
         public DateTime End { get; private set; }
+        public TimeSpan Length
+        {
+            get
+            {
+                return (End - Start);
+            }
+        }
 
         // This date is a Sunday well in the past, which enables easier math and detection of relative schedules
         public static readonly DateTime RootSunday = DateTime.Parse("April 1, 1900");

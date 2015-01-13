@@ -241,6 +241,11 @@ namespace ScheduleTool
                         Console.WriteLine("Found {0} slots on the same day as other slots.", multipleSlots.Count);
                         multipleSlots.ForEach(s => Console.WriteLine(s.ToString()));
                     }
+                    else if (processTypeLower == "breakdown")
+                    {
+                        IceSlotReporter reporter = new IceSlotReporter();
+                        reporter.ReportTeamSlotBreakdown(slots);
+                    }
                     else
                     {
                         Console.WriteLine("Unrecognized process type: {0}", processTypeLower);

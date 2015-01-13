@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using IceScheduler.Slots;
 using IceScheduler.Teams;
+using IceScheduler.Utilities;
 
 namespace IceScheduler.Formatters
 {
@@ -17,11 +18,12 @@ namespace IceScheduler.Formatters
             // Ensure the output directory eixsts
             Directory.CreateDirectory(outputDirectory);
 
-            foreach (Team team in GetRavensTeams())
+            Dictionary<Team, List<IceSlot>> teamSlotMap = SlotUtilities.GetTeamSlotMap(slots);
+            foreach (Team team in RavensUtilities.GetRavensTeams())
             {
                 Console.WriteLine("Writing slots for {0}...", team);
 
-                List<IceSlot> slotsForTeam = GetSlotsForTeam(slots, team);
+                List<IceSlot> slotsForTeam = teamSlotMap[team];
 
                 string teamName = team.ToStringNoAssociation().Replace(" ", "");
                 WriteSchedule(slotsForTeam, CreateTeamSchedulePath(outputDirectory, teamName));
@@ -58,6 +60,12 @@ namespace IceScheduler.Formatters
 
                 foreach (IceSlot slot in slots)
                 {
+                    if (slot is TournamentSlot)
+                    {
+                        // Ignore tournament slots
+                        continue;
+                    }
+
                     Console.WriteLine(slot.ToString());
 
                     string type = string.Empty;
@@ -124,69 +132,6 @@ namespace IceScheduler.Formatters
                     writer.WriteLine(string.Join(",", data));
                 }
             }
-        }
-
-        private List<Team> GetRavensTeams()
-        {
-            return new List<Team>
-            {
-                new Team(Association.RichmondGirls, Division.Tyke, Level.C, 1),
-                new Team(Association.RichmondGirls, Division.Tyke, Level.C, 2),
-                new Team(Association.RichmondGirls, Division.Novice, Level.C, 1),
-                new Team(Association.RichmondGirls, Division.Novice, Level.C, 2),
-                new Team(Association.RichmondGirls, Division.Atom, Level.C, 1),
-                new Team(Association.RichmondGirls, Division.Atom, Level.C, 2),
-                new Team(Association.RichmondGirls, Division.Atom, Level.C, 3),
-                new Team(Association.RichmondGirls, Division.Peewee, Level.A, 1),
-                new Team(Association.RichmondGirls, Division.Peewee, Level.A, 2),
-                new Team(Association.RichmondGirls, Division.Peewee, Level.C, 1),
-                new Team(Association.RichmondGirls, Division.Bantam, Level.A, 1),
-                new Team(Association.RichmondGirls, Division.Bantam, Level.C, 1),
-                new Team(Association.RichmondGirls, Division.Bantam, Level.C, 2),
-                new Team(Association.RichmondGirls, Division.Midget, Level.A, 1),
-                new Team(Association.RichmondGirls, Division.Midget, Level.C, 1),
-                new Team(Association.RichmondGirls, Division.Midget, Level.C, 2),
-                new Team(Association.RichmondGirls, Division.Juvenile, Level.C, 1),
-            };
-        }
-
-        private List<IceSlot> GetSlotsForTeam(List<IceSlot> slots, Team team)
-        {
-            List<IceSlot> slotsForTeam = new List<IceSlot>();
-
-            foreach (IceSlot slot in slots)
-            {
-                if (slot is PracticeSlot)
-                {
-                    PracticeSlot practiceSlot = slot as PracticeSlot;
-                    if (practiceSlot.Teams.Contains(team))
-                    {
-                        slotsForTeam.Add(practiceSlot);
-                    }
-                }
-                else if (slot is TeamSkillDevelopmentSlot)
-                {
-                    TeamSkillDevelopmentSlot skillsSlot = slot as TeamSkillDevelopmentSlot;
-                    if (skillsSlot.Teams.Contains(team))
-                    {
-                        slotsForTeam.Add(skillsSlot);
-                    }
-                }
-                else if (slot is GameSlot)
-                {
-                    GameSlot gameSlot = slot as GameSlot;
-                    if (gameSlot.AwayTeam.Equals(team) || gameSlot.HomeTeam.Equals(team))
-                    {
-                        slotsForTeam.Add(gameSlot);
-                    }
-                }
-                else if (slot is TournamentSlot)
-                {
-                    // Ignore
-                }
-            }
-
-            return slotsForTeam;
         }
 
         private static Dictionary<Rink, string> RinkMapping = new Dictionary<Rink, string>() 
