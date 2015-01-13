@@ -74,6 +74,7 @@
     <Compile Include="Formatters\FlatListFormatter.cs" />
     <Compile Include="Formatters\RavensScheduleFormatter.cs" />
     <Compile Include="Formatters\TeamPagesFormatter.cs" />
+    <Compile Include="IceSlotReporter.cs" />
     <Compile Include="MultipleIceSlotFinder.cs" />
     <Compile Include="Parsers\FlatListParser.cs" />
     <Compile Include="Parsers\ParsingUtilities.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Parsers\PcahaGameParser.cs" />
     <Compile Include="Parsers\PcahaScheduleParser.cs" />
     <Compile Include="Parsers\TeamLinkParser.cs" />
+    <Compile Include="Utilities\RavensUtilities.cs" />
     <Compile Include="ScheduleMetrics.cs" />
     <Compile Include="ScheduleValidator.cs" />
     <Compile Include="Slots\IceSlot.cs" />
@@ -94,6 +96,7 @@
     <Compile Include="Slots\OtherSkillDevelopmentSlot.cs" />
     <Compile Include="Schedule.cs" />
     <Compile Include="Formatters\FormattingUtilities.cs" />
+    <Compile Include="Utilities\SlotUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Teams\Association.cs" />
