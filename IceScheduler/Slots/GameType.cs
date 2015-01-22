@@ -10,6 +10,8 @@ namespace IceScheduler.Slots
     {
         Exhibition,
         Tiering,
-        League
+        League,
+        Playoff,
+        Final,
     }
 }
