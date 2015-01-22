@@ -23,10 +23,12 @@ namespace IceScheduler.Formatters
             {
                 Console.WriteLine("Writing slots for {0}...", team);
 
-                List<IceSlot> slotsForTeam = teamSlotMap[team];
-
-                string teamName = team.ToStringNoAssociation().Replace(" ", "");
-                WriteSchedule(slotsForTeam, CreateTeamSchedulePath(outputDirectory, teamName));
+                List<IceSlot> slotsForTeam;
+                if (teamSlotMap.TryGetValue(team, out slotsForTeam))
+                {
+                    string teamName = team.ToStringNoAssociation().Replace(" ", "");
+                    WriteSchedule(slotsForTeam, CreateTeamSchedulePath(outputDirectory, teamName));
+                }
 
                 Console.WriteLine();
             }
