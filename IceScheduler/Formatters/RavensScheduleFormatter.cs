@@ -328,7 +328,13 @@ namespace IceScheduler.Formatters
             else if (slot is OtherSkillDevelopmentSlot)
             {
                 OtherSkillDevelopmentSlot skillsSlot = slot as OtherSkillDevelopmentSlot;
-                return GetTableCell("SkillsFooter", skillsSlot.Name);
+                string className = "SkillsFooter";
+                if (skillsSlot.Name.Length > 14)
+                {
+                    className = "SkillsFooterSmall";
+
+                }
+                return GetTableCell(className, skillsSlot.Name);
             }
             else if (slot is GameSlot)
             {

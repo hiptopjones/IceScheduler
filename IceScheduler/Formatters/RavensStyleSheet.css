@@ -81,6 +81,14 @@
     border-left:1.0pt solid black;
     border-bottom:1.0pt solid black; 
 }
+.SkillsFooterSmall {
+    background:yellow; 
+    font-size:7.0pt;
+    font-weight:700; 
+    border-right:1.0pt solid black;
+    border-left:1.0pt solid black;
+    border-bottom:1.0pt solid black; 
+}
 .EventHeader {
     background:orange; 
     font-weight:700; 
