@@ -13,5 +13,6 @@ namespace IceScheduler.Slots
         League,
         Playoff,
         Final,
+        Tournament,
     }
 }
