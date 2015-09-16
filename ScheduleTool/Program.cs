@@ -285,8 +285,8 @@ namespace ScheduleTool
                 }
                 else if (outputType.ToLower() == "import")
                 {
-                    TeamPagesFormatter formatter = new TeamPagesFormatter();
-                    formatter.WriteAllSchedules(slots, outputPath);
+                    SportNginFormatter formatter = new SportNginFormatter();
+                    formatter.WriteSchedule(slots, outputPath);
                 }
                 else if (outputType.ToLower() == "matrix")
                 {
