@@ -3,11 +3,11 @@ using IceScheduler.Teams;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;using System.Threading.Tasks;
-
-
+using System.Linq;
+using System.Threading.Tasks;
 using System.Text;
 using System.Text.RegularExpressions;
+
 namespace IceScheduler.Parsers
 {
     public class FlatListParser
