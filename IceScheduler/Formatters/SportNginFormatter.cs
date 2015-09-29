@@ -75,6 +75,11 @@ namespace IceScheduler.Formatters
 
                         tags = string.Join("|", GetTagsForTeams((TeamBasedIceSlot)slot));
                     }
+                    else if (slot is AvailableSlot)
+                    {
+                        title = "Available Ice";
+                        tags = "Available";
+                    }
                     else
                     {
                         continue;
