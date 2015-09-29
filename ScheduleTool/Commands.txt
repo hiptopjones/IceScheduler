@@ -1,0 +1,35 @@
+﻿# Parse PCAHA game schedule, filtering for only Richmond games
+-r pcaha -i "K:\other\Ravens\2015_2016\Schedules\Games\2015-2016 Female Regular Season Schedule Preview.csv" -w flat -o "V:\other\Ravens\2015_2016\output.csv" -p filter -a Richmond
+
+# Create new weekly CSV, rebased from master CSV
+-r flat -i "K:\other\Ravens\2015_2016\Schedules\Master\RavensMasterSchedule-2015-2016.csv" -w flat -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150928.csv" -p rebase -a 09/28/15
+
+# Generate HTML schedule from weekly CSV
+-r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150921.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150921.html"
+-r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150928.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150928.html"
+-r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151005.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151005.html"
+-r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151012.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151012.html"
+-r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151019.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151019.html"
+-r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151026.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151026.html"
+
+# Generate HTML schedule from master CSV
+-r flat -i "K:\other\Ravens\2015_2016\Schedules\Master\RavensMasterSchedule-2015-2016.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Master\RavensMasterSchedule-2015-2016.html"
+
+# Generate website import schedules form weekly CSV
+-r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150928.csv" -w import -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150928.import.csv"
+
+# Dump schedule to console
+-r pcaha -i "K:\other\Ravens\2015_2016\Schedules\Games\2015-2016 Female Regular Season Schedule Preview.csv" -p print
+-r flat -i K:\other\Ravens\2015_2016\Schedules\Master\RavensMasterSchedule-2015-2016.csv -p print 
+
+# Filter out conflict games
+-r flat -i "K:\other\Ravens\2015_2016\Schedules\Games\RavensLeagueGames-November2015.csv" -w flat -o "K:\other\Ravens\2015_2016\Schedules\Games\NonConflicts.csv " -p filter -a nonconflict 
+
+# Check for multiple ice times on a single day for a team
+-r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151117.csv" -p check
+
+# Load schedules from TeamLink and produce a matrix showing days vs. games for all associations
+-r teamlink  -i foo -w matrix -o "Y:\other\Ravens\2015_2016\Schedules\Games\RavensConflictMatrix-PeeweeA-November2015.csv" -p filter -a nonconflict
+
+# Load schedules from TeamLink, filter to only Richmond games, and sort in date order
+-r teamlink -i "Juvenile" -i "Peewee A" -i "Bantam A" -i "Midget A" -w flat -o "K:\other\Ravens\2015_2016\Schedules\TeamLink.csv" -p filter -a Richmond -p sort -a start 
