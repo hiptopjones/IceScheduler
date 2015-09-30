@@ -1,5 +1,8 @@
 ﻿# Parse PCAHA game schedule, filtering for only Richmond games
--r pcaha -i "K:\other\Ravens\2015_2016\Schedules\Games\2015-2016 Female Regular Season Schedule Preview.csv" -w flat -o "V:\other\Ravens\2015_2016\output.csv" -p filter -a Richmond
+-r pcaha -i "K:\other\Ravens\2015_2016\Schedules\Games\Master Schedule - 2015-09-25.csv" -w flat -o "K:\other\Ravens\2015_2016\Schedules\Games\PcahaTieringSchedule.csv" -p filter -a Richmond
+-r flat -i "K:\other\Ravens\2015_2016\Schedules\Games\PcahaTieringSchedule.csv" -w import -o "K:\other\Ravens\2015_2016\Schedules\Games\PcahaTieringSchedule.import.csv"
+-r pcaha -i "K:\other\Ravens\2015_2016\Schedules\Games\Juvenile Master Schedule - 2015-09-29.csv" -w flat -o "K:\other\Ravens\2015_2016\Schedules\Games\PcahaJuvenileSchedule.csv" -p filter -a Richmond
+-r flat -i "K:\other\Ravens\2015_2016\Schedules\Games\PcahaJuvenileSchedule.csv" -w import -o "K:\other\Ravens\2015_2016\Schedules\Games\PcahaJuvenileSchedule.import.csv"
 
 # Create new weekly CSV, rebased from master CSV
 -r flat -i "K:\other\Ravens\2015_2016\Schedules\Master\RavensMasterSchedule-2015-2016.csv" -w flat -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150928.csv" -p rebase -a 09/28/15

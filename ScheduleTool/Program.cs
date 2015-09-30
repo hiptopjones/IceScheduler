@@ -95,7 +95,7 @@ namespace ScheduleTool
                 {
                     // TODO: How to get game type in here?
                     PcahaScheduleParser parser = new PcahaScheduleParser();
-                    slots = inputPaths.SelectMany(inputPath => parser.Parse(GameType.Playoff, inputPath)).ToList();
+                    slots = inputPaths.SelectMany(inputPath => parser.Parse(GameType.League, inputPath)).ToList();
                 }
                 else if (inputType.ToLower() == "flat")
                 {

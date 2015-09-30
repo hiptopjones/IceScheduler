@@ -75,7 +75,7 @@ namespace IceScheduler.Parsers
             {"Meadow Ridge Female", Association.MeadowRidgeFemale},
             {"North Shore Female", Association.NorthShoreFemale},
             {"North Shore Winter Club Female", Association.NorthShoreWinterClubFemale},
-            {"Richmond Girls", Association.RichmondGirls},
+            {"Richmond Female", Association.RichmondGirls},
             {"South Delta Female", Association.SouthDeltaFemale},
             {"Surrey Female", Association.SurreyFemale},
             {"Tri-Cities Female", Association.TriCitiesFemale},

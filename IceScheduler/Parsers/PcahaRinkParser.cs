@@ -18,6 +18,7 @@ namespace IceScheduler.Parsers
         {
             { "Abbotsford Centre Arena", Rink.AbbotsfordCentreIceBlue },  // TODO: Is this right?
             { "Abbotsford Centre Ice 1 Blue", Rink.AbbotsfordCentreIceBlue },
+            { "Abbotsford Recreation Centre", Rink.AbbotsfordARC },
             { "Bellingham Sportsplex", Rink.BellinghamSportsplex },
             { "Burnaby Lake Arena", Rink.BurnabyLake },
             { "Burnaby Winter Club", Rink.BurnabyWinterClub },
@@ -37,6 +38,7 @@ namespace IceScheduler.Parsers
             { "Langley Sportsplex 2", Rink.LangleySportsplex2 },
             { "Langley Sportsplex 4", Rink.LangleySportsplex4 },
             { "Langley Twin Rinks 1", Rink.LangleyTwin1 },
+            { "Langley Twin Rinks 2", Rink.LangleyTwin2 },
             { "MSA Arena - Abbotsford", Rink.AbbotsfordMSA },
             { "Matsqui Recreation Centre", Rink.AbbotsfordMRC },
             { "Minoru Arena Silver Spectrum", Rink.Silver },
@@ -46,6 +48,7 @@ namespace IceScheduler.Parsers
             { "North Surrey Arena 2", Rink.NorthSurrey2 },
             { "PNE Agrodome", Rink.Agrodome },
             { "Pitt Meadows Arena Volkswagen Blue", Rink.PittMeadowsBlue },
+            { "Pitt Meadows Arena Fiat Red", Rink.PittMeadowsRed },
             { "Planet Ice Coquitlam 1 Mars", Rink.PlanetIceCoquitlam1 },
             { "Planet Ice Coquitlam 2 Pluto", Rink.PlanetIceCoquitlam2 },
             { "Planet Ice Coquitlam 3 Venus", Rink.PlanetIceCoquitlam3 },
@@ -70,6 +73,7 @@ namespace IceScheduler.Parsers
             { "Surrey Sport & Leisure Centre Arena 3 Green", Rink.SurreyLeisure3 },
             { "SS&L 3 Green", Rink.SurreyLeisure3 },
             { "Tilbury Ice", Rink.Tilbury },
+            { "Trout Lake Community Centre", Rink.TroutLake },
             { "West Vancouver Ice Arena", Rink.WestVan },
             { "Non-PCAHA Arena", Rink.Unknown },
         };
