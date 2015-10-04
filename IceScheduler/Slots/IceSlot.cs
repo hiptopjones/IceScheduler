@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IceScheduler.Slots
 {
-    public class IceSlot
+    public abstract class IceSlot
     {
         public IceTime IceTime { get; private set; }
 

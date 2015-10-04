@@ -78,6 +78,7 @@
     <Compile Include="IceSlotReporter.cs" />
     <Compile Include="MultipleIceSlotFinder.cs" />
     <Compile Include="Parsers\FlatListParser.cs" />
+    <Compile Include="Parsers\InvoiceParser.cs" />
     <Compile Include="Parsers\ParsingUtilities.cs" />
     <Compile Include="Parsers\PcahaRinkParser.cs" />
     <Compile Include="Parsers\RavensScheduleParser.cs" />

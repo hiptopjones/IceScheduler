@@ -107,6 +107,11 @@ namespace ScheduleTool
                     TeamLinkParser parser = new TeamLinkParser();
                     slots = inputPaths.SelectMany(teamGrouping => parser.ParseSchedule(teamGrouping)).ToList();
                 }
+                else if (inputType.ToLower() == "invoice")
+                {
+                    InvoiceParser parser = new InvoiceParser();
+                    slots = inputPaths.SelectMany(inputPath => parser.Parse(inputPath)).ToList();
+                }
                 else
                 {
                     Console.WriteLine("Unrecognized input type: {0}", inputType);

@@ -10,7 +10,7 @@
 # Generate HTML schedule from weekly CSV
 -r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150921.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150921.html"
 -r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150928.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150928.html"
--r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151005.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151005.html"
+-r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151005.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151005.html" -p check
 -r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151012.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151012.html"
 -r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151019.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151019.html"
 -r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151026.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151026.html"
@@ -19,7 +19,7 @@
 -r flat -i "K:\other\Ravens\2015_2016\Schedules\Master\RavensMasterSchedule-2015-2016.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Master\RavensMasterSchedule-2015-2016.html"
 
 # Generate website import schedules form weekly CSV
--r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150928.csv" -w import -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150928.import.csv"
+-r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151005.csv" -w import -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151005.import.csv" -p filter -a nongame
 
 # Dump schedule to console
 -r pcaha -i "K:\other\Ravens\2015_2016\Schedules\Games\2015-2016 Female Regular Season Schedule Preview.csv" -p print
@@ -36,3 +36,8 @@
 
 # Load schedules from TeamLink, filter to only Richmond games, and sort in date order
 -r teamlink -i "Juvenile" -i "Peewee A" -i "Bantam A" -i "Midget A" -w flat -o "K:\other\Ravens\2015_2016\Schedules\TeamLink.csv" -p filter -a Richmond -p sort -a start 
+
+# Parse RACA invoice so it can be easily compared
+-r invoice -i "K:\other\Ravens\2015_2016\Invoices\RACA Invoice - September2015.csv" -w flat -o "K:\other\Ravens\2015_2016\Invoices\InvoiceSeptember2015.csv"
+-r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150914.csv" -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150921.csv" -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150928.csv" -w flat -o  "K:\other\Ravens\2015_2016\Invoices\ActualSeptember2015.csv"
+
