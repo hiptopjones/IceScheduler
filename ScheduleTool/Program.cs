@@ -112,6 +112,11 @@ namespace ScheduleTool
                     InvoiceParser parser = new InvoiceParser();
                     slots = inputPaths.SelectMany(inputPath => parser.Parse(inputPath)).ToList();
                 }
+                else if (inputType.ToLower() == "sportngin")
+                {
+                    SportNginParser parser = new SportNginParser();
+                    slots = inputPaths.SelectMany(inputPath => parser.Parse(inputPath)).ToList();
+                }
                 else
                 {
                     Console.WriteLine("Unrecognized input type: {0}", inputType);
@@ -241,10 +246,15 @@ namespace ScheduleTool
                     else if (processTypeLower == "check")
                     {
                         MultipleIceSlotFinder finder = new MultipleIceSlotFinder();
-                        List<IceSlot> multipleSlots = finder.FindMultiples(slots);
+                        Dictionary<string, List<IceSlot>> slotMap = finder.FindMultiples(slots);
 
-                        Console.WriteLine("Found {0} slots on the same day as other slots.", multipleSlots.Count);
-                        multipleSlots.ForEach(s => Console.WriteLine(s.ToString()));
+                        foreach (string key in slotMap.Keys)
+                        {
+                            List<IceSlot> multipleSlots = slotMap[key];
+                            Console.WriteLine("{0}: Found {1} slots on the same day.", key, multipleSlots.Count);
+                            multipleSlots.ForEach(s => Console.WriteLine("    " + s.ToString()));
+                            Console.WriteLine();
+                        }
                     }
                     else if (processTypeLower == "breakdown")
                     {

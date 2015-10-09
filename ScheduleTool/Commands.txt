@@ -11,9 +11,9 @@
 -r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150921.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150921.html"
 -r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150928.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150928.html"
 -r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151005.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151005.html" -p check
--r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151012.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151012.html"
--r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151019.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151019.html"
--r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151026.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151026.html"
+-r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151012.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151012.html" -p check
+-r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151019.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151019.html" -p check
+-r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151026.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151026.html" -p check
 
 # Generate HTML schedule from master CSV
 -r flat -i "K:\other\Ravens\2015_2016\Schedules\Master\RavensMasterSchedule-2015-2016.csv" -w ravens -o "K:\other\Ravens\2015_2016\Schedules\Master\RavensMasterSchedule-2015-2016.html"
@@ -41,3 +41,5 @@
 -r invoice -i "K:\other\Ravens\2015_2016\Invoices\RACA Invoice - September2015.csv" -w flat -o "K:\other\Ravens\2015_2016\Invoices\InvoiceSeptember2015.csv"
 -r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150914.csv" -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150921.csv" -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20150928.csv" -w flat -o  "K:\other\Ravens\2015_2016\Invoices\ActualSeptember2015.csv"
 
+# Parse SportNgin export file
+-r sportngin -i "K:\other\Ravens\2015_2016\Schedules\Games\SportNginExport-October2015.csv" -w flat -o "K:\other\Ravens\2015_2016\Schedules\Games\SportNgin-October2015.csv"

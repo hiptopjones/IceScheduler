@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace IceScheduler.Teams
@@ -59,54 +60,50 @@ namespace IceScheduler.Teams
 
         public string ToStringVersus()
         {
-            string shortName;
-
-            switch (Association)
+            if (!AssociationVersusMap.ContainsKey(Association))
             {
-                case Association.AbbotsfordFemale:
-                    shortName = "Abbotsford";
-                    break;
-                case Association.BurnabyFemale:
-                    shortName = "Burnaby";
-                    break;
-                case Association.ChilliwackFemale:
-                    shortName = "Chilliwack";
-                    break;
-                case Association.LangleyGirls:
-                    shortName = "Langley";
-                    break;
-                case Association.MeadowRidgeFemale:
-                    shortName = "M Ridge";
-                    break;
-                case Association.NorthShoreFemale:
-                    shortName = "N Shore";
-                    break;
-                case Association.NorthShoreWinterClubFemale:
-                    shortName = "NSWC";
-                    break;
-                case Association.RichmondGirls:
-                    shortName = "Richmond";
-                    break;
-                case Association.SouthDeltaFemale:
-                    shortName = "S Delta";
-                    break;
-                case Association.SurreyFemale:
-                    shortName = "Surrey";
-                    break;
-                case Association.TriCitiesFemale:
-                    shortName = "Tri-Cities";
-                    break;
-                case Association.VancouverGirls:
-                    shortName = "Vancouver";
-                    break;
-                case Association.WesternWashingtonFemale:
-                    shortName = "W Washington";
-                    break;
-                default:
-                    throw new Exception(string.Format("Unrecognized association: {0}", Association));
+                throw new Exception(string.Format("Unrecognized association: {0}", Association));
             }
 
+            string shortName = AssociationVersusMap[Association];
             return string.Format("{0} {1}{2}", shortName, Level, Flight);
         }
+
+        public static Team FromVersusString(string input, Division division = Division.Tyke)
+        {
+            Regex regex = new Regex(@"^(.*)\s+(C|A)(\d+)$");
+            Match match = regex.Match(input);
+            if (match.Success)
+            {
+                var reverseMap = AssociationVersusMap.ToLookup(pair => pair.Value, pair => pair.Key);
+
+                Association association = reverseMap[match.Groups[1].Value].First();
+                Level level = (Level)Enum.Parse(typeof(Level), match.Groups[2].Value);
+                int flight = Int32.Parse(match.Groups[3].Value);
+
+                return new Team(association, division, level, flight);
+            }
+
+            throw new Exception(string.Format("Unable to parse into Team: '{0}'", input));
+        }
+
+        // This should probably go in an Association class
+        private static Dictionary<Association, string> AssociationVersusMap = new Dictionary<Association, string>
+        {
+            { Association.AbbotsfordFemale, "Abbotsford" },
+            { Association.BurnabyFemale, "Burnaby" },
+            { Association.ChilliwackFemale, "Chilliwack" },
+            { Association.LangleyGirls, "Langley" },
+            { Association.MeadowRidgeFemale, "M Ridge" },
+            { Association.NorthShoreFemale, "N Shore" },
+            { Association.NorthShoreWinterClubFemale, "NSWC" },
+            { Association.RichmondGirls, "Richmond" },
+            { Association.SouthDeltaFemale, "S Delta" },
+            { Association.SurreyFemale, "Surrey" },
+            { Association.TriCitiesFemale, "Tri-Cities" },
+            { Association.VancouverGirls, "Vancouver" },
+            { Association.WesternWashingtonFemale, "W Washington" },
+            { Association.Unknown, "Unknown" },
+        };
     }
 }

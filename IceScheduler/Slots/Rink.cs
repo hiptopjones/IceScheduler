@@ -45,6 +45,7 @@ namespace IceScheduler.Slots
         LangleySportsplex4,
         LangleyTwin1,
         LangleyTwin2,
+        LangleyEventsCentre,
         Newton,
         NorthShoreWinterClub,
         NorthSurrey2,

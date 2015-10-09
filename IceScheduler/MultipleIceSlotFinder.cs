@@ -11,7 +11,7 @@ namespace IceScheduler
 {
     public class MultipleIceSlotFinder
     {
-        public List<IceSlot> FindMultiples(List<IceSlot> slots)
+        public Dictionary<string, List<IceSlot>> FindMultiples(List<IceSlot> slots)
         {
             Dictionary<string, List<IceSlot>> teamAndDateMap = new Dictionary<string, List<IceSlot>>();
             slots.ForEach(s =>
@@ -33,15 +33,7 @@ namespace IceScheduler
                 }
             });
 
-            return teamAndDateMap.SelectMany(p =>
-            {
-                if (p.Value.Count > 1)
-                {
-                    return p.Value;
-                }
-
-                return new List<IceSlot>();
-            }).ToList();
+            return teamAndDateMap.Where(p => p.Value.Count > 1).ToDictionary(p => p.Key, p => p.Value);
         }
     }
 }

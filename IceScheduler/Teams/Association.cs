@@ -21,5 +21,6 @@ namespace IceScheduler.Teams
         TriCitiesFemale,
         VancouverGirls,
         WesternWashingtonFemale,
+        Unknown,
     }
 }
