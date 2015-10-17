@@ -43,3 +43,6 @@
 
 # Parse SportNgin export file
 -r sportngin -i "K:\other\Ravens\2015_2016\Schedules\Games\SportNginExport-October2015.csv" -w flat -o "K:\other\Ravens\2015_2016\Schedules\Games\SportNgin-October2015.csv"
+
+# Parse out skills sessions
+-r flat -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151005.csv" -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151012.csv" -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151019.csv" -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151026.csv" -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151102.csv" -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151109.csv" -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151116.csv" -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151123.csv" -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151130.csv" -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151207.csv" -i "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-20151214.csv" -w flat -o "K:\other\Ravens\2015_2016\Schedules\Weekly\RavensWeeklySchedule-Skills-2015.csv" -p filter -a skills 

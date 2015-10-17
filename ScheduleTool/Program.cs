@@ -169,34 +169,63 @@ namespace ScheduleTool
                     {
                         Console.WriteLine("Filtering slots using '{0}'.", processArgument);
 
+                        bool invertFilter = false;
+                        if (processArgumentLower.StartsWith("!"))
+                        {
+                            invertFilter = true;
+                            processArgumentLower = processArgumentLower.TrimStart(new char[] { '!' });
+                            processArgument = processArgument.TrimStart(new char[] { '!' });
+                        }
+
                         if (processArgumentLower == "richmond")
                         {
-                            // Richmond slots
-                            slots = slots.Where(s => s.ToString().Contains("Richmond")).ToList();
+                            Predicate<IceSlot> filterExpression = (s) => (s is GameSlot && s.ToString().Contains("Richmond"));
+                            slots = slots.Where(s => invertFilter ? !filterExpression(s) : filterExpression(s)).ToList();
                         }
                         else if (processArgumentLower == "homegame")
                         {
-                            // Richmond home games
-                            slots = slots.Where(s => s is GameSlot).ToList();
-                            slots = slots.Where(s => (s as GameSlot).HomeTeam.Association == Association.RichmondGirls).ToList();
+                            Predicate<IceSlot> filterExpression = (s) => (s is GameSlot && (s as GameSlot).HomeTeam.Association == Association.RichmondGirls);
+                            slots = slots.Where(s => invertFilter ? !filterExpression(s) : filterExpression(s)).ToList();
+                        }
+                        else if (processArgumentLower == "awaygame")
+                        {
+                            Predicate<IceSlot> filterExpression = (s) => (s is GameSlot && (s as GameSlot).AwayTeam.Association == Association.RichmondGirls);
+                            slots = slots.Where(s => invertFilter ? !filterExpression(s) : filterExpression(s)).ToList();
                         }
                         else if (processArgumentLower == "conflict")
                         {
-                            slots = slots.Where(s => s is GameSlot).ToList();
-                            slots = slots.Where(s => (s as GameSlot).IceTime.Start == DateTime.MinValue).ToList();
+                            Predicate<IceSlot> filterExpression = (s) => (s is GameSlot && (s as GameSlot).IceTime.Start == DateTime.MinValue);
+                            slots = slots.Where(s => invertFilter ? !filterExpression(s) : filterExpression(s)).ToList();
                         }
-                        else if (processArgumentLower == "nonconflict")
+                        else if (processArgumentLower == "game")
                         {
-                            slots = slots.Where(s => s is GameSlot).ToList();
-                            slots = slots.Where(s => (s as GameSlot).IceTime.Start != DateTime.MinValue).ToList();
-                        }
-                        else if (processArgumentLower == "nongame")
-                        {
-                            slots = slots.Where(s => !(s is GameSlot)).ToList();
+                            Predicate<IceSlot> filterExpression = (s) => (s is GameSlot);
+                            slots = slots.Where(s => invertFilter ? !filterExpression(s) : filterExpression(s)).ToList();
                         }
                         else if (processArgumentLower == "available")
                         {
-                            slots = slots.Where(s => s is AvailableSlot).ToList();
+                            Predicate<IceSlot> filterExpression = (s) => (s is AvailableSlot);
+                            slots = slots.Where(s => invertFilter ? !filterExpression(s) : filterExpression(s)).ToList();
+                        }
+                        else if (processArgumentLower == "skills")
+                        {
+                            Predicate<IceSlot> filterExpression = (s) => (s is OtherSkillDevelopmentSlot || s is TeamSkillDevelopmentSlot);
+                            slots = slots.Where(s => invertFilter ? !filterExpression(s) : filterExpression(s)).ToList();
+                        }
+                        else if (processArgumentLower == "practice")
+                        {
+                            Predicate<IceSlot> filterExpression = (s) => (s is PracticeSlot);
+                            slots = slots.Where(s => invertFilter ? !filterExpression(s) : filterExpression(s)).ToList();
+                        }
+                        else if (processArgumentLower == "tournament")
+                        {
+                            Predicate<IceSlot> filterExpression = (s) => (s is TournamentSlot);
+                            slots = slots.Where(s => invertFilter ? !filterExpression(s) : filterExpression(s)).ToList();
+                        }
+                        else if (processArgumentLower == "special")
+                        {
+                            Predicate<IceSlot> filterExpression = (s) => (s is SpecialEventSlot);
+                            slots = slots.Where(s => invertFilter ? !filterExpression(s) : filterExpression(s)).ToList();
                         }
                         else if (processArgumentLower.StartsWith("teams"))
                         {
@@ -256,11 +285,6 @@ namespace ScheduleTool
                             Console.WriteLine();
                         }
                     }
-                    else if (processTypeLower == "breakdown")
-                    {
-                        IceSlotReporter reporter = new IceSlotReporter();
-                        reporter.ReportTeamSlotBreakdown(slots);
-                    }
                     else
                     {
                         Console.WriteLine("Unrecognized process type: {0}", processTypeLower);
@@ -301,6 +325,11 @@ namespace ScheduleTool
                 else if (outputType.ToLower() == "import")
                 {
                     SportNginFormatter formatter = new SportNginFormatter();
+                    formatter.WriteSchedule(slots, outputPath);
+                }
+                else if (outputType.ToLower() == "breakdown")
+                {
+                    SlotBreakdownFormatter formatter = new SlotBreakdownFormatter();
                     formatter.WriteSchedule(slots, outputPath);
                 }
                 else if (outputType.ToLower() == "matrix")

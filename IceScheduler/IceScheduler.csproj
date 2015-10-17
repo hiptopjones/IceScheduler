@@ -73,9 +73,9 @@
     <Compile Include="Formatters\ConflictMatrixFormatter.cs" />
     <Compile Include="Formatters\FlatListFormatter.cs" />
     <Compile Include="Formatters\RavensScheduleFormatter.cs" />
+    <Compile Include="Formatters\SlotBreakdownFormatter.cs" />
     <Compile Include="Formatters\SportNginFormatter.cs" />
     <Compile Include="Formatters\TeamPagesFormatter.cs" />
-    <Compile Include="IceSlotReporter.cs" />
     <Compile Include="MultipleIceSlotFinder.cs" />
     <Compile Include="Parsers\FlatListParser.cs" />
     <Compile Include="Parsers\SportNginParser.cs" />
