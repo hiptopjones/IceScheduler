@@ -20,6 +20,7 @@ namespace IceScheduler.Slots
         OvalNorth,
         OvalSouth,
         BuckNEar,
+        AbbotsfordCentreArena,
         AbbotsfordARC,
         AbbotsfordCentreIceBlue,
         AbbotsfordMRC,
