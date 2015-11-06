@@ -52,6 +52,7 @@ namespace IceScheduler.Formatters
 
                     OtherSkillDevelopmentSlot skillsSlot = slot as OtherSkillDevelopmentSlot;
                     fields.Add(skillsSlot.Name);
+                    fields.Add(skillsSlot.OtherInfo);
                 }
                 else if (slot is GameSlot)
                 {
@@ -76,7 +77,7 @@ namespace IceScheduler.Formatters
                     fields.Add("Tournament");
 
                     TournamentSlot tournamentSlot = slot as TournamentSlot;
-                    fields.Add(tournamentSlot.Team.ToString());
+                    fields.Add(tournamentSlot.Team.ToStringNoAssociation());
                     fields.Add(tournamentSlot.Name);
                 }
                 else

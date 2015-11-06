@@ -9,16 +9,19 @@ namespace IceScheduler.Slots
     public class OtherSkillDevelopmentSlot : IceSlot
     {
         public string Name { get; private set; }
+        public string OtherInfo { get; private set; }
 
-        public OtherSkillDevelopmentSlot(IceTime iceTime, string name)
+        public OtherSkillDevelopmentSlot(IceTime iceTime, string name, string otherInfo)
             : base(iceTime)
         {
             Name = name;
+            OtherInfo = otherInfo;
         }
 
         public override string ToString()
         {
-            return string.Format("Skill Development - {0} - {1}", Name, base.ToString());
+            string otherInfo = string.IsNullOrEmpty(OtherInfo) ? string.Empty : string.Format(" ({0})", OtherInfo);
+            return string.Format("Skill Development - {0}{1} - {2}", Name, otherInfo, base.ToString());
         }
     }
 }

@@ -91,7 +91,7 @@ namespace IceScheduler.Parsers
                         {
                             if (footer == "Goalies" || footer == "Various")
                             {
-                                slot = new OtherSkillDevelopmentSlot(iceTime, footer);
+                                slot = new OtherSkillDevelopmentSlot(iceTime, header, footer);
                             }
                             else
                             {

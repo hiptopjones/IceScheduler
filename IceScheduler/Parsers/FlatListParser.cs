@@ -62,7 +62,8 @@ namespace IceScheduler.Parsers
                 }
                 else if (fields[5] == "OtherSkills")
                 {
-                    slot = new OtherSkillDevelopmentSlot(iceTime, fields[6]);
+                    string otherInfo = fields.Length > 7 ? fields[7] : string.Empty; // Optional field
+                    slot = new OtherSkillDevelopmentSlot(iceTime, fields[6], otherInfo);
                 }
                 else if (fields[5] == "SpecialEvent")
                 {
