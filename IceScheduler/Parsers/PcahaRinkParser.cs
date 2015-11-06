@@ -26,6 +26,7 @@ namespace IceScheduler.Parsers
             { "Cloverdale Arena", Rink.Cloverdale },
             { "Coquitlam Main", Rink.CoquitlamMain },
             { "Coquitlam Recreation", Rink.CoquitlamRec },
+            { "Excellent Ice 2 Blue", Rink.ExcellentIceBlue},
             { "George Preston Recreation Centre", Rink.GeorgePreston },
             { "Harry Jerome Rec Centre", Rink.HarryJerome },
             { "Hillcrest Centre Arena", Rink.Hillcrest },

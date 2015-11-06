@@ -126,7 +126,7 @@ namespace IceScheduler.Formatters
                             {
                                 team2Name = gameSlot.HomeTeam.ToStringVersus();
                             }
-                            
+
                             team1IsHome = "0";
                         }
                         else
@@ -199,6 +199,7 @@ namespace IceScheduler.Formatters
         private static Dictionary<Rink, string> RinkMapping = new Dictionary<Rink, string>() 
         {
             { Rink.BuckNEar, "Buck 'n' Ear" },  
+            { Rink.AbbotsfordCentreArena, "Abbotsford Centre Arena" },  
             { Rink.AbbotsfordCentreIceBlue, "Abbotsford Centre Ice - 1 (Blue)" },  
             { Rink.AbbotsfordMRC, "Abbotsford MRC" },  
             { Rink.AbbotsfordMSA, "Abbotsford MSA" },  
@@ -211,6 +212,7 @@ namespace IceScheduler.Formatters
             { Rink.Cloverdale, "Cloverdale Arena" },  
             { Rink.CoquitlamMain, "Coquitlam 1 Main" },  
             { Rink.CoquitlamRec, "Coquitlam 2 Poirier Sport and Rec. Centre" },  
+            { Rink.ExcellentIceBlue, "Excellent Ice 2 Blue" },  
             { Rink.GeorgePreston, "George Preston Recreation Centre (Langley Civic Centre)" },  
             { Rink.PlanetIceDeltaCanadian, "Great Pacific Forum - Canadian" },  
             { Rink.HarryJerome, "Harry Jerome Recreation Centre" },  
