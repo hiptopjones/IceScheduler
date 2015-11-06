@@ -8,6 +8,7 @@ namespace IceScheduler.Slots
 {
     public enum GameType
     {
+        Unknown,
         Exhibition,
         Tiering,
         League,

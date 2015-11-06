@@ -165,6 +165,45 @@ namespace ScheduleTool
                             return s;
                         }).ToList();
                     }
+                    else if (processTypeLower == "collapse")
+                    {
+                        Console.WriteLine("Collapsing duplicate slots.");
+
+                        Dictionary<string, IceSlot> slotMap = new Dictionary<string, IceSlot>();
+                        foreach (IceSlot thisSlot in slots)
+                        {
+                            // Generate a key that is unique for the ice time
+                            string slotKey = thisSlot.IceTime.ToString();
+
+                            // Don't want to collapse tournament slots, so make the keys unique
+                            TournamentSlot thisTournamentSlot = thisSlot as TournamentSlot;
+                            if (thisTournamentSlot != null)
+                            {
+                                slotKey = thisTournamentSlot.ToString();
+                            }
+
+                            // See this ice time is a duplicate
+                            IceSlot thatSlot = null;
+                            if (!slotMap.TryGetValue(slotKey, out thatSlot))
+                            {
+                                slotMap[slotKey] = thisSlot;
+                                continue;
+                            }
+
+                            // Found duplicate slot, so pick the one that is a real game
+                            List<IceSlot> slotPair = new List<IceSlot> { thisSlot, thatSlot };
+                            slotMap[slotKey] = slotPair.FirstOrDefault(s => s is GameSlot && ((GameSlot)s).Type != GameType.Unknown);
+
+                            if (slotMap[slotKey] == null)
+                            {
+                                Console.WriteLine("Unable to resolve duplicate:\n{0}\n{1}", thisSlot, thatSlot);
+                                PrintUsage();
+                                return;
+                            }
+                        }
+
+                        slots = slotMap.Values.ToList();
+                    }
                     else if (processTypeLower == "filter")
                     {
                         Console.WriteLine("Filtering slots using '{0}'.", processArgument);
