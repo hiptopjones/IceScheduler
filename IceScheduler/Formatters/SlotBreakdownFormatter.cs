@@ -30,11 +30,11 @@ namespace IceScheduler.Formatters
             builder.AppendLine(GetStyleSheet());
             builder.AppendLine("</head>");
             builder.AppendLine("<body>");
-            builder.AppendLine("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=743 style='border-collapse: collapse;table-layout:fixed'>");
+            builder.AppendLine("<table border=\"1\" cellpadding=\"0\" cellspacing=\"0\" width=1200 style='border-collapse: collapse'>");
 
             // Title row
             builder.AppendLine("<tr>");
-            builder.AppendLine(GetTableCell("Title", "Slot Breakdown", "colspan=\"5\""));
+            builder.AppendLine(GetTableCell("Title", "Slot Breakdown", "colspan=\"9\""));
             builder.AppendLine("</tr>");
 
             // Blank row
@@ -43,11 +43,23 @@ namespace IceScheduler.Formatters
             builder.AppendLine("</tr>");
 
             builder.AppendLine("<tr>");
+            builder.AppendLine(GetTableCell(string.Empty));
+            builder.AppendLine(GetTableCell(string.Empty, "Practices", "colspan=\"2\""));
+            builder.AppendLine(GetTableCell(string.Empty, "Skills", "colspan=\"2\""));
+            builder.AppendLine(GetTableCell(string.Empty, "Games", "colspan=\"2\""));
+            builder.AppendLine(GetTableCell(string.Empty, "Totals", "colspan=\"2\""));
+            builder.AppendLine("</tr>");
+
+            builder.AppendLine("<tr>");
             builder.AppendLine(GetTableCell("Team"));
-            builder.AppendLine(GetTableCell("Practices"));
-            builder.AppendLine(GetTableCell("Skills"));
-            builder.AppendLine(GetTableCell("Games"));
-            builder.AppendLine(GetTableCell("Totals"));
+            builder.AppendLine(GetTableCell("Count"));
+            builder.AppendLine(GetTableCell("Hours"));
+            builder.AppendLine(GetTableCell("Count"));
+            builder.AppendLine(GetTableCell("Hours"));
+            builder.AppendLine(GetTableCell("Count"));
+            builder.AppendLine(GetTableCell("Hours"));
+            builder.AppendLine(GetTableCell("Count"));
+            builder.AppendLine(GetTableCell("Hours"));
             builder.AppendLine("</tr>");
 
             // HACK: Use a hard-coded list of teams to enable proper sorting
@@ -61,15 +73,23 @@ namespace IceScheduler.Formatters
 
                 // Totals (ignore tournament slots)
                 TimeSpan practiceIceTime = TimeSpan.FromMinutes(teamSlots.Sum(s => (s is PracticeSlot) ? s.IceTime.Length.TotalMinutes : 0));
+                int practiceCount = teamSlots.Count(s => (s is PracticeSlot));
                 TimeSpan skillsIceTime = TimeSpan.FromMinutes(teamSlots.Sum(s => (s is TeamSkillDevelopmentSlot) ? s.IceTime.Length.TotalMinutes : 0));
+                int skillsCount = teamSlots.Count(s => (s is TeamSkillDevelopmentSlot));
                 TimeSpan gameIceTime = TimeSpan.FromMinutes(teamSlots.Sum(s => (s is GameSlot) ? s.IceTime.Length.TotalMinutes : 0));
+                int gameCount = teamSlots.Count(s => (s is GameSlot));
                 TimeSpan totalIceTime = TimeSpan.FromMinutes(teamSlots.Sum(s => (s is TournamentSlot) ? 0 : s.IceTime.Length.TotalMinutes));
+                int totalCount = teamSlots.Count(s => !(s is TournamentSlot));
 
                 builder.AppendLine("<tr>");
                 builder.AppendLine(GetTableCell(team.ToString()));
+                builder.AppendLine(GetTableCell(practiceCount.ToString()));
                 builder.AppendLine(GetTableCell(practiceIceTime.TotalHours.ToString()));
+                builder.AppendLine(GetTableCell(skillsCount.ToString()));
                 builder.AppendLine(GetTableCell(skillsIceTime.TotalHours.ToString()));
+                builder.AppendLine(GetTableCell(gameCount.ToString()));
                 builder.AppendLine(GetTableCell(gameIceTime.TotalHours.ToString()));
+                builder.AppendLine(GetTableCell(totalCount.ToString()));
                 builder.AppendLine(GetTableCell(totalIceTime.TotalHours.ToString()));
                 builder.AppendLine("</tr>");
             }
