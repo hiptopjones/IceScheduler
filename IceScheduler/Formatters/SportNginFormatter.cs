@@ -16,6 +16,8 @@ namespace IceScheduler.Formatters
         {
             using (StreamWriter writer = new StreamWriter(schedulePath))
             {
+                List<IceSlot> skippedSlots = new List<IceSlot>();
+
                 string[] fields = new[]
                     {
                         "Start_Date",
@@ -40,10 +42,9 @@ namespace IceScheduler.Formatters
                     if (slot is TournamentSlot)
                     {
                         // Ignore tournament slots
+                        skippedSlots.Add(slot);
                         continue;
                     }
-
-                    Console.WriteLine(slot.ToString());
 
                     string startDate = string.Empty;
                     string startTime = string.Empty;
@@ -61,8 +62,6 @@ namespace IceScheduler.Formatters
 
                     if (slot is PracticeSlot)
                     {
-                        PracticeSlot practiceSlot = (PracticeSlot)slot;
-
                         title = "Practice";
                     }
                     else if (slot is TeamSkillDevelopmentSlot)
@@ -143,9 +142,12 @@ namespace IceScheduler.Formatters
                     }
                     else
                     {
-                        Console.WriteLine("Unexpected ice slot: {0}", slot);
+                        skippedSlots.Add(slot);
                         continue;
                     }
+
+
+                    Console.WriteLine(slot.ToString());
 
                     if (slot is TeamBasedIceSlot)
                     {
@@ -176,6 +178,14 @@ namespace IceScheduler.Formatters
                         };
 
                     writer.WriteLine(string.Join(",", data));
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("Skipped slots:");
+
+                foreach (var slot in skippedSlots)
+                {
+                    Console.WriteLine(slot.ToString());
                 }
             }
         }
