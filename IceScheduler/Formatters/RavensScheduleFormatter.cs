@@ -376,13 +376,13 @@ namespace IceScheduler.Formatters
         private string GetAwayGameCell(GameSlot gameSlot)
         {
             string teamAway = string.Format("{0} Away", gameSlot.AwayTeam.ToStringNoAssociation());
-            return GetTableCell(teamAway);
+            return GetTableCell("AwayGame", teamAway);
         }
 
         private string GetTournamentCell(TournamentSlot tournamentSlot)
         {
             string teamAway = string.Format("{0} Away", tournamentSlot.Team.ToStringNoAssociation());
-            return GetTableCell(teamAway);
+            return GetTableCell("AwayTournament", teamAway);
         }
 
         private string GetRinkName(Rink rink)

@@ -113,6 +113,12 @@
     border-left:1.0pt solid black;
     border-bottom:1.0pt solid black; 
 }
+.AwayGame {
+    font-size:7.0pt;
+}
+.AwayTournament {
+    font-size:7.0pt;
+}
 .DayOfWeekTop {
     font-weight:900; 
     border-top:2.0pt solid black;
