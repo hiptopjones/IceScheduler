@@ -34,6 +34,7 @@ namespace IceScheduler.Slots
         CoquitlamMain,
         CoquitlamRec,
         ExcellentIceBlue,
+        ExcellentIceRed,
         GeorgePreston,
         HarryJerome,
         Hillcrest,
