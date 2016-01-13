@@ -221,22 +221,23 @@ namespace ScheduleTool
                             Predicate<IceSlot> filterExpression = (s) => (s is GameSlot && s.ToString().Contains("Richmond"));
                             slots = slots.Where(s => invertFilter ? !filterExpression(s) : filterExpression(s)).ToList();
                         }
-                        else if (processArgumentLower == "homegame")
+                        else if (processArgumentLower == "homegame" || processArgumentLower == "homegames")
                         {
                             Predicate<IceSlot> filterExpression = (s) => (s is GameSlot && (s as GameSlot).HomeTeam.Association == Association.RichmondGirls);
                             slots = slots.Where(s => invertFilter ? !filterExpression(s) : filterExpression(s)).ToList();
                         }
-                        else if (processArgumentLower == "awaygame")
+                        else if (processArgumentLower == "awaygame" || processArgumentLower == "awaygames")
                         {
-                            Predicate<IceSlot> filterExpression = (s) => (s is GameSlot && (s as GameSlot).AwayTeam.Association == Association.RichmondGirls);
+                            // This predicate will keep games where two Ravens teams play each other
+                            Predicate<IceSlot> filterExpression = (s) => (s is GameSlot && (s as GameSlot).HomeTeam.Association != Association.RichmondGirls);
                             slots = slots.Where(s => invertFilter ? !filterExpression(s) : filterExpression(s)).ToList();
                         }
-                        else if (processArgumentLower == "conflict")
+                        else if (processArgumentLower == "conflict" || processArgumentLower == "conflicts")
                         {
                             Predicate<IceSlot> filterExpression = (s) => (s is GameSlot && (s as GameSlot).IceTime.Start == DateTime.MinValue);
                             slots = slots.Where(s => invertFilter ? !filterExpression(s) : filterExpression(s)).ToList();
                         }
-                        else if (processArgumentLower == "game")
+                        else if (processArgumentLower == "game" || processArgumentLower == "games")
                         {
                             Predicate<IceSlot> filterExpression = (s) => (s is GameSlot);
                             slots = slots.Where(s => invertFilter ? !filterExpression(s) : filterExpression(s)).ToList();
@@ -251,12 +252,13 @@ namespace ScheduleTool
                             Predicate<IceSlot> filterExpression = (s) => (s is OtherSkillDevelopmentSlot || s is TeamSkillDevelopmentSlot);
                             slots = slots.Where(s => invertFilter ? !filterExpression(s) : filterExpression(s)).ToList();
                         }
-                        else if (processArgumentLower == "practice")
+                        else if (processArgumentLower == "practice" || processArgumentLower == "practices")
                         {
                             Predicate<IceSlot> filterExpression = (s) => (s is PracticeSlot);
                             slots = slots.Where(s => invertFilter ? !filterExpression(s) : filterExpression(s)).ToList();
                         }
-                        else if (processArgumentLower == "tournament")
+                        else if (processArgumentLower == "tournament" || processArgumentLower == "tournaments")
+                        
                         {
                             Predicate<IceSlot> filterExpression = (s) => (s is TournamentSlot);
                             slots = slots.Where(s => invertFilter ? !filterExpression(s) : filterExpression(s)).ToList();
@@ -265,6 +267,19 @@ namespace ScheduleTool
                         {
                             Predicate<IceSlot> filterExpression = (s) => (s is SpecialEventSlot);
                             slots = slots.Where(s => invertFilter ? !filterExpression(s) : filterExpression(s)).ToList();
+                        }
+                        else if (processArgumentLower.StartsWith("dates"))
+                        {
+                            string[] dates = processArgument.Split(new[] { ' ' }).Skip(1).ToArray();
+
+                            DateTime startDate = DateTime.Parse(dates[0]);
+                            DateTime endDate = startDate;
+                            if (dates.Length > 1)
+                            {
+                                endDate = DateTime.Parse(dates[1]);
+                            }
+
+                            slots = slots.Where(s => s.IceTime.Start.Date >= startDate && s.IceTime.Start.Date <= endDate).ToList();
                         }
                         else if (processArgumentLower.StartsWith("teams"))
                         {
