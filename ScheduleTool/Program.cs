@@ -218,7 +218,7 @@ namespace ScheduleTool
 
                         if (processArgumentLower == "richmond")
                         {
-                            Predicate<IceSlot> filterExpression = (s) => (s is GameSlot && s.ToString().Contains("Richmond"));
+                            Predicate<IceSlot> filterExpression = (s) => (s is GameSlot && s.ToString().Contains("RichmondGirls"));
                             slots = slots.Where(s => invertFilter ? !filterExpression(s) : filterExpression(s)).ToList();
                         }
                         else if (processArgumentLower == "homegame" || processArgumentLower == "homegames")
